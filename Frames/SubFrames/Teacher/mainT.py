@@ -6,8 +6,6 @@ def yon1():
 def yon2():
     print("Notlarım sayfasına yönlendiriliyor...")
 
-def yon3():
-    print("Yaklaşan Sınavlarım sayfasına yönlendiriliyor...")
 
 def teacher_gui():
     # Ana pencereyi oluşturuyoruz
@@ -21,14 +19,13 @@ def teacher_gui():
     frame.grid_columnconfigure(0, weight=1)
 
     # Butonları oluşturuyoruz
-    dersler_button = ctk.CTkButton(frame, text="Derslerim", width=200, height=50, command=yon1)
+    dersler_button = ctk.CTkButton(frame, text="Eğitim Görevlisi Olduğum Dersler", width=200, height=50, command=yon1)
     dersler_button.grid(row=0, column=0, pady=10)
 
-    notlar_button = ctk.CTkButton(frame, text="Notlarım", width=200, height=50, command=yon2)
+    notlar_button = ctk.CTkButton(frame, text="Tüm Öğrenciler", width=200, height=50, command=yon2)
     notlar_button.grid(row=1, column=0, pady=10)
 
-    sinavlar_button = ctk.CTkButton(frame, text="Yaklaşan Sınavlarım", width=200, height=50, command=yon3)
-    sinavlar_button.grid(row=2, column=0, pady=10)
+ 
 
     # Butonlara hover efektleri ekliyoruz
     for button in [dersler_button, notlar_button, sinavlar_button]:
