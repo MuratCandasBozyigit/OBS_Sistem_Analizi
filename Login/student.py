@@ -1,28 +1,24 @@
 import customtkinter as ctk
 
-def adminLogin():
+def studentLogin():
     root = ctk.CTk()
-    root.title("Admin Giriş Sayfası")
+    root.title("Öğrenci Giriş Sayfası")
     root.geometry("400x300")
 
     frame = ctk.CTkFrame(root)
     frame.pack(padx=30, pady=30, fill="both", expand=True)
 
-    title = ctk.CTkLabel(frame, text="Admin Giriş", font=("Arial", 20))
+    title = ctk.CTkLabel(frame, text="Öğrenci Giriş", font=("Arial", 20))
     title.pack(pady=(10, 20))
 
-    full_name_entry = ctk.CTkEntry(frame, placeholder_text="Ad Soyad")
-    full_name_entry.pack(pady=10)
-
-    username_entry = ctk.CTkEntry(frame, placeholder_text="Kullanıcı Adı")
-    username_entry.pack(pady=10)
+    tckn_entry = ctk.CTkEntry(frame, placeholder_text="TCKN")
+    tckn_entry.pack(pady=10)
 
     password_entry = ctk.CTkEntry(frame, placeholder_text="Şifre", show="*")
     password_entry.pack(pady=10)
 
     def login_action():
-        print("Admin Ad Soyad:", full_name_entry.get())
-        print("Kullanıcı Adı:", username_entry.get())
+        print("TCKN:", tckn_entry.get())
         print("Şifre:", password_entry.get())
 
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
