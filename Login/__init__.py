@@ -1,2 +1,3 @@
 from .adminLogin import *
-from .standartLogin import *
+from .studentLogin import *
+from .teacherLogin import *
