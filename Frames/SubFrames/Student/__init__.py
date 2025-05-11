@@ -1,0 +1,1 @@
+from .mainS import merhaba_ekran_s
