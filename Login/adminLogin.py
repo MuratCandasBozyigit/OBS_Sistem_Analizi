@@ -27,6 +27,10 @@ def adminLogin():
         print("Kullanıcı Adı:", username_entry.get())
         print("Şifre:", password_entry.get())
 
+        root.destroy()  
+        from Frames.SubFrames.Admin.mainA import merhaba_ekran_a
+        merhaba_ekran_a()  
+
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
     login_button.pack(pady=20)
 
