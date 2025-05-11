@@ -1,1 +1,1 @@
-from .mainA import merhaba_ekran_a
+from .mainA import admin_gui

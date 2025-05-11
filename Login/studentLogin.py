@@ -23,8 +23,8 @@ def studentLogin():
         print("TCKN:", tckn_entry.get())
         print("Şifre:", password_entry.get())
         root.destroy()  
-        from Frames.SubFrames.Student.mainS import merhaba_ekran_s
-        merhaba_ekran_s()  
+        from Frames.SubFrames.Student.mainS import student_gui
+        student_gui()  
 
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
     login_button.pack(pady=20)

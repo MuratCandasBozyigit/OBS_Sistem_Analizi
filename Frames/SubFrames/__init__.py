@@ -1,3 +1,3 @@
-from .Admin import merhaba_ekran_a
-from .Student import merhaba_ekran_s
-from .Teacher import merhaba_ekran_t
+from .Admin import admin_gui
+from .Student import student_gui
+from .Teacher import teacher_gui
