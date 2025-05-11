@@ -1,6 +1,7 @@
 import customtkinter as ctk
 
 def adminLogin():
+    from Frames.startFrame import build_gui
     root = ctk.CTk()
     root.title("Admin Giriş Sayfası")
     root.geometry("400x300")
@@ -27,5 +28,12 @@ def adminLogin():
 
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
     login_button.pack(pady=20)
+
+    def go_back():
+        root.destroy()
+        build_gui()
+
+    back_button = ctk.CTkButton(frame, text="Geri Dön", command=go_back, fg_color="gray")
+    back_button.pack(pady=5)
 
     root.mainloop()
