@@ -1,3 +1,5 @@
-from .Admin import merhaba_ekran_a
-from .Student import merhaba_ekran_s
-from .Teacher import merhaba_ekran_t
+# SubFrames/__init__.py
+from .Admin import mainA
+from .Student import mainS
+from .Teacher import mainT
+# Burada sadece import ediyoruz ama çağırmıyoruz
