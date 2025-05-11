@@ -12,5 +12,3 @@ def merhaba_ekran_a():
     # Pencereyi gösteriyoruz
     pencere.mainloop()
 
-# Fonksiyonu çağırarak pencereyi açabiliriz
-merhaba_ekran_a()
