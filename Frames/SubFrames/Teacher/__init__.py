@@ -1,0 +1,1 @@
+from .mainT import merhaba_ekran_t
