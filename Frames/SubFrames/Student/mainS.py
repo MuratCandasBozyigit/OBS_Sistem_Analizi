@@ -37,6 +37,3 @@ def student_gui():
 
     root.mainloop()
 
-# Build GUI'yi başlatıyoruz
-if __name__ == "__main__":
-    build_gui()

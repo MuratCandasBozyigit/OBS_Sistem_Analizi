@@ -22,8 +22,8 @@ def teacherLogin():
         print("TCKN:", tckn_entry.get())
         print("Şifre:", password_entry.get())
         root.destroy()  
-        from Frames.SubFrames.Teacher.mainT import merhaba_ekran_t
-        merhaba_ekran_t() 
+        from Frames.SubFrames.Teacher.mainT import teacher_gui
+        teacher_gui() 
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
     login_button.pack(pady=20)
 

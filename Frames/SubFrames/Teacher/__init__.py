@@ -1,1 +1,1 @@
-from .mainT import merhaba_ekran_t
+from .mainT import teacher_gui
