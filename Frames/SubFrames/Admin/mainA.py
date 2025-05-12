@@ -6,6 +6,7 @@ def yon2():
 
 def admin_gui():
     from Frames.SubFrames.Admin.Class import getClasses  
+    from Frames.SubFrames.Admin.Student import getStudents
     import Frames  # Ana sayfaya dönüş için gerekli
 
     root = ctk.CTk()
