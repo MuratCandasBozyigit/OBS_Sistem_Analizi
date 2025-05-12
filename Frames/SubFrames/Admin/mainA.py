@@ -44,6 +44,6 @@ def admin_gui():
     # Hover efekti
     for button in [addStudent_button, addTeacher_button, addClass_button, assignTeacher_button, assignStudent_button]:
         button.bind("<Enter>", lambda e, b=button: b.configure(fg_color="darkblue"))
-        button.bind("<Leave>", lambda e, b=button: b.configure(fg_color="gray"))
+        button.bind("<Leave>", lambda e, b=button: b.configure(fg_color="blue"))
 
     root.mainloop()
