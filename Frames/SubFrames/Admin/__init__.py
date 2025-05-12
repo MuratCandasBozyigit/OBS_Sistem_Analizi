@@ -1,3 +1,3 @@
 from .mainA import admin_gui
-from .createClass import ders_ekleme_sayfasi
-from .classes import dersler_yonetim_penceresi
+from .Class.createClass import ders_ekleme_sayfasi
+from .Class.classes import dersler_yonetim_penceresi

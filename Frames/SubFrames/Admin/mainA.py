@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from Frames.SubFrames.Admin import classes  # Yolu kendi projenine göre güncelle
+# Yolu kendi projenine göre güncelle
 
 def yon1():
     print("Öğrenci kayıt sayfasına yönlendiriliyor...")
@@ -8,6 +8,7 @@ def yon2():
     print("Öğretmen kayıt sayfasına yönlendiriliyor...")
 
 def admin_gui():
+    from Frames.SubFrames.Admin.Class import classes  
     import Frames  # Ana sayfaya dönüş için gerekli
     root = ctk.CTk()
     root.title("Admin Paneli")
