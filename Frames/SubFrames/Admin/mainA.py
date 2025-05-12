@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from Frames.SubFrames.Admin import createClass  # Yolu kendi projenine göre güncelle
 
 def yon1():
     print("Öğrenci kayıt sayfasına yönlendiriliyor...")
@@ -10,7 +11,7 @@ def yon3():
     print("Ders işlemleri sayfasına yönlendiriliyor...")
 
 def admin_gui():
-    import Frames
+    import Frames  # Ana sayfaya dönüş için gerekli
     root = ctk.CTk()
     root.title("Admin Paneli")
     root.geometry("400x500")
@@ -25,7 +26,9 @@ def admin_gui():
     addTeacher_button = ctk.CTkButton(frame, text="Öğretmen Kayıt", width=200, height=50, command=yon2)
     addTeacher_button.grid(row=1, column=0, pady=10)
 
-    addClass_button = ctk.CTkButton(frame, text="Yeni Ders Ekle", width=200, height=50, command=yon3)
+    # Ders ekleme sayfası yeni pencerede açılıyor
+    addClass_button = ctk.CTkButton(frame, text="Yeni Ders Ekle", width=200, height=50,
+                                    command=createClass.ders_ekleme_penceresi)
     addClass_button.grid(row=2, column=0, pady=10)
 
     assignTeacher_button = ctk.CTkButton(frame, text="Derse Öğretmen Ata", width=200, height=50, command=yon3)

@@ -12,3 +12,11 @@ def create_dersler_table():
     ''')
     conn.commit()
     conn.close()
+
+def ders_ekle(ders_adi, ders_saati):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO dersler (ders_adı, ders_saati) VALUES (?, ?)",
+                   (ders_adi, ders_saati))
+    conn.commit()
+    conn.close()
