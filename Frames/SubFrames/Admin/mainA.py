@@ -12,28 +12,22 @@ def admin_gui():
     import Frames  # Ana sayfaya dönüş için gerekli
     root = ctk.CTk()
     root.title("Admin Paneli")
-    root.geometry("400x500")
+    root.geometry("400x300")
 
     frame = ctk.CTkFrame(root)
     frame.pack(fill="both", expand=True, padx=20, pady=20)
     frame.grid_columnconfigure(0, weight=1)
 
-    addStudent_button = ctk.CTkButton(frame, text="Öğrenci Kayıt", width=200, height=50, command=yon1)
+    addStudent_button = ctk.CTkButton(frame, text="Öğrenci İşlemleri", width=200, height=50, command=yon1)
     addStudent_button.grid(row=0, column=0, pady=10)
 
-    addTeacher_button = ctk.CTkButton(frame, text="Öğretmen Kayıt", width=200, height=50, command=yon2)
+    addTeacher_button = ctk.CTkButton(frame, text="Öğretmen İşlemleri", width=200, height=50, command=yon2)
     addTeacher_button.grid(row=1, column=0, pady=10)
 
     # Ders ekleme sayfası yeni pencerede açılıyor
-    addClass_button = ctk.CTkButton(frame, text="Yeni Ders Ekle", width=200, height=50,
+    addClass_button = ctk.CTkButton(frame, text="Ders İşlemleri", width=200, height=50,
                                     command=classes.dersler_yonetim_penceresi)
     addClass_button.grid(row=2, column=0, pady=10)
-
-    assignTeacher_button = ctk.CTkButton(frame, text="Derse Öğretmen Ata", width=200, height=50, )
-    assignTeacher_button.grid(row=3, column=0, pady=10)
-
-    assignStudent_button = ctk.CTkButton(frame, text="Derse Öğrenci Ekle", width=200, height=50, )
-    assignStudent_button.grid(row=4, column=0, pady=10)
 
     def go_back():
         root.destroy()

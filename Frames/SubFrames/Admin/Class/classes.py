@@ -1,16 +1,9 @@
 import customtkinter as ctk
 from . import createClass 
+from . import getClasses
 # Tema ayarları
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
-
-# Dersleri Göster Sayfası
-def dersleri_goster():
-    print("Tüm Dersler Gösteriliyor...")
-
-# Ders Ekle Sayfası
-def ders_ekle():
-    print("Yeni Ders Ekleme Sayfası Açılıyor...")
 
 # Ders Sil Sayfası
 def ders_sil():
@@ -40,7 +33,7 @@ def dersler_yonetim_penceresi():
     button_font = ("Arial", int(14 * 1.3), "bold")  # ~24pt
 
     # Butonlar
-    show_all_button = ctk.CTkButton(frame, text="Tüm Dersleri Göster", command=dersleri_goster,
+    show_all_button = ctk.CTkButton(frame, text="Tüm Dersleri Göster", command=getClasses.dersleri_listele_gui,
                                     width=button_width, height=button_height, font=button_font)
     show_all_button.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
 
