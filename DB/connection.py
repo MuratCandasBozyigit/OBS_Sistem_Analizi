@@ -13,5 +13,5 @@ def init_database():
     DB.Migrations.create_dersler_table()
     DB.Migrations.create_ogrenciler_table()
     DB.Migrations.create_ogretmenler_table()
-
+    DB.Migrations.create_adminler_table()
     
