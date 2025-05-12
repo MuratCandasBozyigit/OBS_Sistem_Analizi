@@ -1,67 +1,63 @@
 import customtkinter as ctk
 
+# CustomTkinter tema ayarları
+ctk.set_appearance_mode("light")
+ctk.set_default_color_theme("blue")
+
 # Dersleri Göster Sayfası
 def dersleri_goster():
-    print("Tüm Dersler Gösteriliyor...")  # Burada dersleri listeleyeceksiniz.
+    print("Tüm Dersler Gösteriliyor...")
 
 # Ders Ekle Sayfası
 def ders_ekle():
-    print("Yeni Ders Ekleme Sayfası Açılıyor...")  # Burada yeni ders ekleme sayfasını açabilirsiniz.
+    print("Yeni Ders Ekleme Sayfası Açılıyor...")
 
 # Ders Sil Sayfası
 def ders_sil():
-    print("Ders Silme Sayfası Açılıyor...")  # Burada ders silme işlemi yapılabilir.
+    print("Ders Silme Sayfası Açılıyor...")
 
 # Ders Güncelle Sayfası
 def ders_guncelle():
-    print("Ders Güncelleme Sayfası Açılıyor...")  # Burada ders güncelleme işlemi yapılabilir.
+    print("Ders Güncelleme Sayfası Açılıyor...")
 
 # Ana Yönetim Sayfası
 def dersler_yonetim_penceresi():
     win = ctk.CTkToplevel()
     win.title("Ders Yönetimi")
     win.geometry("500x400")
-    dersler_yonetim_sayfasi(win)
 
-def dersler_yonetim_sayfasi(root_frame):
-    # Tüm önceki widget'ları temizle
-    for widget in root_frame.winfo_children():
-        widget.destroy()
+    # CTkFrame ile arayüz konteyneri
+    frame = ctk.CTkFrame(win)
+    frame.pack(expand=True, fill="both", padx=20, pady=20)
 
     # Başlık
-    title_label = ctk.CTkLabel(root_frame, text="Ders Yönetimi", font=("Arial", 24, "bold"))
-    title_label.grid(row=0, column=0, columnspan=2, pady=30)
+    title_label = ctk.CTkLabel(frame, text="Ders Yönetimi", font=("Arial", 24, "bold"))
+    title_label.grid(row=0, column=0, columnspan=2, pady=(10, 30))
 
     # Butonlar
-    buttons = [
-        ("Tüm Dersleri Göster", dersleri_goster),
-        ("Ders Ekle", ders_ekle),
-        ("Ders Sil", ders_sil),
-        ("Ders Güncelle", ders_guncelle)
-    ]
+    show_all_button = ctk.CTkButton(frame, text="Tüm Dersleri Göster", command=dersleri_goster)
+    show_all_button.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
 
-    for idx, (text, command) in enumerate(buttons):
-        button = ctk.CTkButton(root_frame, text=text, width=200, height=50, command=command, fg_color="blue", hover_color="darkblue")
-        button.grid(row=idx + 1, column=0, pady=10, padx=10, ipadx=10, ipady=10, sticky="ew")
+    add_class_button = ctk.CTkButton(frame, text="Ders Ekle", command=ders_ekle)
+    add_class_button.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
 
-    # Tasarım Özellikleri
-    root_frame.grid_rowconfigure(0, weight=1)
-    root_frame.grid_rowconfigure(1, weight=1)
-    root_frame.grid_columnconfigure(0, weight=1)
+    delete_class_button = ctk.CTkButton(frame, text="Ders Sil", command=ders_sil)
+    delete_class_button.grid(row=1, column=1, padx=10, pady=10, sticky="ew")
 
-    # Butonlar arası mesafe ve kenar boşlukları
-    for button in [button for _, button in buttons]:
-        button.grid_configure(padx=20, pady=10)
+    update_class_button = ctk.CTkButton(frame, text="Ders Güncelle", command=ders_guncelle)
+    update_class_button.grid(row=2, column=1, padx=10, pady=10, sticky="ew")
 
-    # Butonları ortalamak
-    root_frame.grid_columnconfigure(0, weight=1)
+    # Grid düzeni
+    frame.grid_columnconfigure(0, weight=1)
+    frame.grid_columnconfigure(1, weight=1)
 
-    # Görsel olarak hoş bir görünüm için stil ekledik
-    for button in [button for _, button in buttons]:
-        button.configure(fg_color="blue", hover_color="darkblue", font=("Arial", 14, "bold"))
-        
-    # Arka plan rengi
-    root_frame.configure(bg="#f5f5f5")
+# Ana pencereyi test için çalıştır
+if __name__ == "__main__":
+    app = ctk.CTk()
+    app.title("Ana Menü")
+    app.geometry("400x300")
 
-# Eğer program çalıştırılacaksa aşağıdaki kodu aktif edin
-# dersler_yonetim_penceresi()
+    open_button = ctk.CTkButton(app, text="Ders Yönetim Panelini Aç", command=dersler_yonetim_penceresi)
+    open_button.pack(pady=100)
+
+    app.mainloop()
