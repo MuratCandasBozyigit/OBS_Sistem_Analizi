@@ -1,5 +1,5 @@
 import customtkinter as ctk
-
+from Frames.SubFrames.Admin import createClass 
 # Tema ayarları
 ctk.set_appearance_mode("light")
 ctk.set_default_color_theme("blue")
@@ -44,7 +44,7 @@ def dersler_yonetim_penceresi():
                                     width=button_width, height=button_height, font=button_font)
     show_all_button.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
 
-    add_class_button = ctk.CTkButton(frame, text="Ders Ekle", command=ders_ekle,
+    add_class_button = ctk.CTkButton(frame, text="Ders Ekle", command=createClass.ders_ekleme_sayfasi,
                                      width=button_width, height=button_height, font=button_font)
     add_class_button.grid(row=2, column=0, padx=10, pady=10, sticky="ew")
 
