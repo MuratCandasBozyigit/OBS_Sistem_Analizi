@@ -7,7 +7,7 @@ from . import createClass
 def dersleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Ders Yönetimi")
-    win.geometry("750x600")
+    win.geometry("700x600")
 
     title = ctk.CTkLabel(win, text="Tüm Dersler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
