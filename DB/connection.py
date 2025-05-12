@@ -7,7 +7,7 @@ def get_connection():
     return sqlite3.connect(DB_PATH)
 
 
-# def create_tables():
+#def init_database()
 #     # Bağlantıyı al
 #     conn = sqlite3.connect(DB_PATH)
 #     cursor = conn.cursor()
