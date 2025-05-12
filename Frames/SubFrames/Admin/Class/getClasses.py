@@ -43,7 +43,6 @@ def dersleri_listele_gui():
             except Exception as e:
                 messagebox.showerror("Hata", f"Silinemedi!\n{e}")
 
-    # Güncelleme formunu oluşturmak için geçici tutucu
     guncelle_form = {"frame": None}
 
     def guncelle_goster(row_idx, ders_id, mevcut_ad, mevcut_saat):
@@ -53,15 +52,22 @@ def dersleri_listele_gui():
         form = ctk.CTkFrame(scroll_frame, fg_color="#F0F0F0")
         form.grid(row=row_idx+1, column=0, columnspan=5, pady=(5, 15), sticky="ew", padx=10)
 
-        ctk.CTkLabel(form, text="Ders Adı:", font=("Arial", 13)).grid(row=0, column=0, padx=5, pady=5, sticky="w")
+        def iptal_et():
+            form.destroy()
+            guncelle_form["frame"] = None
+
+        iptal_btn = ctk.CTkButton(form, text="İptal", command=iptal_et, width=80, fg_color="gray", hover_color="darkgray")
+        iptal_btn.grid(row=0, column=0, padx=(0, 10), pady=5)
+
+        ctk.CTkLabel(form, text="Ders Adı:", font=("Arial", 13)).grid(row=0, column=1, padx=5, pady=5, sticky="w")
         entry_ad = ctk.CTkEntry(form, width=200)
         entry_ad.insert(0, mevcut_ad)
-        entry_ad.grid(row=0, column=1, padx=5, pady=5)
+        entry_ad.grid(row=0, column=2, padx=5, pady=5)
 
-        ctk.CTkLabel(form, text="Ders Saati:", font=("Arial", 13)).grid(row=0, column=2, padx=5, pady=5, sticky="w")
+        ctk.CTkLabel(form, text="Ders Saati:", font=("Arial", 13)).grid(row=0, column=3, padx=5, pady=5, sticky="w")
         entry_saat = ctk.CTkEntry(form, width=100)
         entry_saat.insert(0, mevcut_saat)
-        entry_saat.grid(row=0, column=3, padx=5, pady=5)
+        entry_saat.grid(row=0, column=4, padx=5, pady=5)
 
         def kaydet():
             yeni_ad = entry_ad.get().strip()
@@ -80,7 +86,7 @@ def dersleri_listele_gui():
                 messagebox.showerror("Hata", f"Güncelleme hatası:\n{e}")
 
         guncelle_btn = ctk.CTkButton(form, text="Kaydet", command=kaydet, width=100)
-        guncelle_btn.grid(row=0, column=4, padx=10)
+        guncelle_btn.grid(row=0, column=5, padx=10)
 
         guncelle_form["frame"] = form
 
