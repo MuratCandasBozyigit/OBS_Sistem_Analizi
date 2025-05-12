@@ -1,2 +1,2 @@
-from .getStudents import tum_ogrencileri_getir,ogrenci_guncelle,ogrenci_sil,ogrencileri_listele_gui
+from .getStudents import ogrencileri_listele_gui
 from .createStudent import ogrenci_ekleme_sayfasi

@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from DB.Migrations.Class.create import ogrenci_ekle  # Bu fonksiyon DB işlemini yapan fonksiyon
+from DB.Migrations.Student.create import ogrenci_ekle  # Bu fonksiyon DB işlemini yapan fonksiyon
 
 def ogrenci_ekleme_penceresi():
     win = ctk.CTkToplevel()
