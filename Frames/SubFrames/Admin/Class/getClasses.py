@@ -12,10 +12,32 @@ def dersleri_listele_gui():
     title = ctk.CTkLabel(win, text="Tüm Dersler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
 
-    ekle_btn = ctk.CTkButton(win, text="Yeni Ders Ekle",
-                             command=createClass.ders_ekleme_penceresi,
-                             fg_color="green", hover_color="#006400", font=("Arial", 14))
-    ekle_btn.pack(pady=(0, 10))
+    def refresh():
+        win.destroy()
+        dersleri_listele_gui()
+
+       # Butonları tutacak yatay çerçeve
+    button_frame = ctk.CTkFrame(win, fg_color="transparent")
+    button_frame.pack(pady=(0, 10))
+
+    # Yenile Butonu
+    yenile_btn = ctk.CTkButton(
+        button_frame,
+        text="Sayfayı Yenile 🔁",
+        command=refresh,
+        fg_color="gray", hover_color="darkgray", font=("Arial", 14)
+    )
+    yenile_btn.pack(side="left", padx=10)
+
+    # Yeni Ders Ekle Butonu
+    ekle_btn = ctk.CTkButton(
+        button_frame,
+        text="Yeni Ders Ekle",
+        command=createClass.ders_ekleme_penceresi,
+        fg_color="green", hover_color="#006400", font=("Arial", 14)
+    )
+    ekle_btn.pack(side="left", padx=10)
+
 
     scroll_frame = ctk.CTkScrollableFrame(win, width=700, height=460)
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
@@ -86,7 +108,7 @@ def dersleri_listele_gui():
         guncelle_btn = ctk.CTkButton(form, text="Kaydet", command=kaydet, width=100)
         guncelle_btn.grid(row=0, column=5, padx=10)
         iptal_btn = ctk.CTkButton(form, text="İptal", command=iptal_et, width=80, fg_color="gray", hover_color="darkgray")
-        iptal_btn.grid(row=0, column=6, padx=(0, 10), pady=5)
+        iptal_btn.grid(row=1, column=6, padx=(0, 10), pady=5)
 
         guncelle_form["frame"] = form
 
