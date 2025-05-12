@@ -56,9 +56,7 @@ def dersleri_listele_gui():
             form.destroy()
             guncelle_form["frame"] = None
 
-        iptal_btn = ctk.CTkButton(form, text="İptal", command=iptal_et, width=80, fg_color="gray", hover_color="darkgray")
-        iptal_btn.grid(row=0, column=0, padx=(0, 10), pady=5)
-
+        
         ctk.CTkLabel(form, text="Ders Adı:", font=("Arial", 13)).grid(row=0, column=1, padx=5, pady=5, sticky="w")
         entry_ad = ctk.CTkEntry(form, width=200)
         entry_ad.insert(0, mevcut_ad)
@@ -87,6 +85,8 @@ def dersleri_listele_gui():
 
         guncelle_btn = ctk.CTkButton(form, text="Kaydet", command=kaydet, width=100)
         guncelle_btn.grid(row=0, column=5, padx=10)
+        iptal_btn = ctk.CTkButton(form, text="İptal", command=iptal_et, width=80, fg_color="gray", hover_color="darkgray")
+        iptal_btn.grid(row=0, column=6, padx=(0, 10), pady=5)
 
         guncelle_form["frame"] = form
 
