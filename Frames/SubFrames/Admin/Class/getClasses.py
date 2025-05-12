@@ -1,6 +1,6 @@
 import customtkinter as ctk
-from DB.Migrations.Class.read import tum_dersleri_getir
-from DB.Migrations.Class.create import ders_ekle
+from DB.Migrations.Class import tum_dersleri_getir,ders_sil,ders_guncelle,ders_ekle
+
 from . import createClass 
 def dersleri_listele_gui():
     win = ctk.CTkToplevel()
