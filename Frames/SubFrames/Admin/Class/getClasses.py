@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from DB.Migrations.Class.read import tum_dersleri_getir
-
+from DB.Migrations.Class.create import ders_ekle
+from . import createClass 
 def dersleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Ders Yönetimi")
@@ -10,7 +11,7 @@ def dersleri_listele_gui():
     title.pack(pady=10)
 
     # Ekleme Butonu
-    ekle_btn = ctk.CTkButton(win, text="Yeni Ders Ekle", fg_color="green", hover_color="#006400", font=("Arial", 14))
+    ekle_btn = ctk.CTkButton(win, text="Yeni Ders Ekle",  command=createClass.ders_ekleme_penceresi,fg_color="green", hover_color="#006400", font=("Arial", 14))
     ekle_btn.pack(pady=(0, 10))
 
     scroll_frame = ctk.CTkScrollableFrame(win, width=650, height=350)
