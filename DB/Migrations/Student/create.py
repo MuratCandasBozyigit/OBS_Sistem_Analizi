@@ -20,11 +20,22 @@ def create_ogrenciler_table():
     conn.close()
 
 
-def ogrenci_ekle(ogrenci_adı, ogrenci_soyadı,ogrenci_fotoğraf,ogrenci_adres,ogrenci_tel_no,ogrenci_tcknogrenci_numarası,sifre):
+def ogrenci_ekle(ad, soyad, fotoğraf, adres, tel_no, tckn, ogr_no, sifre):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO ogrenciler (ders_adı, ders_saati) VALUES (?, ?)",
-                   (ders_adi, ders_saati))
+    
+    cursor.execute("""
+        INSERT INTO ogrenciler (
+            ogrenci_adı,
+            ogrenci_soyadı,
+            ogrenci_fotoğraf,
+            ogrenci_adres,
+            ogrenci_tel_no,
+            ogrenci_tckn,
+            ogrenci_numarası,
+            sifre
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """, (ad, soyad, fotoğraf, adres, tel_no, tckn, ogr_no, sifre))
+
     conn.commit()
     conn.close()
-
