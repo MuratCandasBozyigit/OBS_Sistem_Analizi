@@ -46,7 +46,7 @@ def ogrencileri_listele_gui():
     ogrenciler = tum_ogrencileri_getir()
     if not ogrenciler:
         ctk.CTkLabel(scroll_frame, text="Kayıtlı öğrenci bulunamadı.", font=("Arial", 14)).grid(
-            row=1, column=0, columnspan=10, pady=10
+            row=1, column=4, columnspan=10, pady=10
         )
         return
 
@@ -128,7 +128,7 @@ def ogrencileri_listele_gui():
                 return
 
             try:
-                ogrenci_guncelle(ogrenci_id, yeni_ad, yeni_soyad, yeni_tel, yeni_tckn, yeni_numara, yeni_foto, yeni_adres, yeni_sifre)
+                ogrenci_guncelle(ogrenci_id, yeni_ad, yeni_soyad, yeni_foto, yeni_adres, yeni_tel, yeni_tckn, yeni_numara, yeni_sifre)
                 messagebox.showinfo("Başarılı", "Öğrenci güncellendi.")
                 win.destroy()
                 ogrencileri_listele_gui()
@@ -181,5 +181,8 @@ def ogrencileri_listele_gui():
         )
         guncelle_btn.grid(row=0, column=9, padx=5, pady=5)
 
-        sil_btn = ctk.CTkButton(row_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500", command=lambda ogrenci_id=ogrenci_id, frame=row_frame: sil_ogrenci(ogrenci_id, frame))
+        sil_btn = ctk.CTkButton(
+            row_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500", 
+            command=lambda ogrenci_id=ogrenci_id, row_frame=row_frame: sil_ogrenci(ogrenci_id, row_frame)
+        )
         sil_btn.grid(row=0, column=10, padx=5, pady=5)
