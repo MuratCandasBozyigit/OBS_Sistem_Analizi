@@ -4,7 +4,7 @@ from DB.Migrations.Student.create import ogrenci_ekle  # Bu fonksiyon DB işlemi
 def ogrenci_ekleme_penceresi():
     win = ctk.CTkToplevel()
     win.title("Yeni Öğrenci Ekle")
-    win.geometry("400x400")
+    win.geometry("400x600")
     ogrenci_ekleme_sayfasi(win)
 
 def ogrenci_ekleme_sayfasi(root_frame):
@@ -103,7 +103,7 @@ def ogrenci_ekleme_sayfasi(root_frame):
         mesaj.grid(row=9, column=0, columnspan=2, pady=10)
 
     kaydet_button = ctk.CTkButton(root_frame, text="Kaydet", command=kaydet)
-    kaydet_button.grid(row=8, column=0, columnspan=2, pady=20)
+    kaydet_button.grid(row=10, column=0, columnspan=2, pady=20)
 
     # Grid kolonlarını eşitle
     root_frame.grid_columnconfigure(0, weight=1)
