@@ -7,8 +7,7 @@ def create_adminler_table():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS adminler (
             admin_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            ad TEXT NOT NULL,
-            soyad TEXT NOT NULL,
+            ad_soyad TEXT NOT NULL,
             kullanici_adi TEXT NOT NULL UNIQUE,
             sifre TEXT NOT NULL
         );
