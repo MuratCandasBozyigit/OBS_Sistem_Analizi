@@ -1,24 +1,18 @@
 import customtkinter as ctk
 
 def yon1():
-    print("Derslerim sayfasına yönlendiriliyor...")
+    print("Öğrenci kayıt sayfasına yönlendiriliyor...")
 
 def yon2():
-    print("Notlarım sayfasına yönlendiriliyor...")
+    print("Öğretmen kayıt sayfasına yönlendiriliyor...")
 
 def yon3():
-    print("Yaklaşan Sınavlarım sayfasına yönlendiriliyor...")
-
-def yon2():
-    print("Notlarım sayfasına yönlendiriliyor...")
-
-def yon3():
-    print("Yaklaşan Sınavlarım sayfasına yönlendiriliyor...")
-
+    print("Ders işlemleri sayfasına yönlendiriliyor...")
 
 def admin_gui():
+    import Frames
     root = ctk.CTk()
-    root.title("Ana Sayfa")
+    root.title("Admin Paneli")
     root.geometry("400x500")
 
     frame = ctk.CTkFrame(root)
@@ -40,11 +34,16 @@ def admin_gui():
     assignStudent_button = ctk.CTkButton(frame, text="Derse Öğrenci Ekle", width=200, height=50, command=yon3)
     assignStudent_button.grid(row=4, column=0, pady=10)
 
+    def go_back():
+        root.destroy()
+        Frames.build_gui()
 
-    # Butonlara hover efektleri ekliyoruz
-    for button in [addStudent_button, addTeacher_button, addClass_button,assignTeacher_button,assignStudent_button]:
+    back_button = ctk.CTkButton(frame, text="Ana Sayfaya Dön", command=go_back, fg_color="gray")
+    back_button.grid(row=5, column=0, pady=10)
+
+    # Hover efekti
+    for button in [addStudent_button, addTeacher_button, addClass_button, assignTeacher_button, assignStudent_button]:
         button.bind("<Enter>", lambda e, b=button: b.configure(fg_color="darkblue"))
         button.bind("<Leave>", lambda e, b=button: b.configure(fg_color="gray"))
 
     root.mainloop()
-
