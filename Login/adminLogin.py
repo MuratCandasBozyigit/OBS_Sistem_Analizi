@@ -16,7 +16,7 @@ def adminLogin():
     title = ctk.CTkLabel(frame, text="Admin Giriş", font=("Arial", 20))
     title.pack(pady=(10, 20))
 
-    name_entry = ctk.CTkEntry(frame, placeholder_text="Ad")
+    name_entry = ctk.CTkEntry(frame, placeholder_text="Ad Soyad")
     name_entry.pack(pady=10)
 
     username_entry = ctk.CTkEntry(frame, placeholder_text="Kullanıcı Adı")
@@ -29,7 +29,7 @@ def adminLogin():
     login_status.pack(pady=5)
 
     def login_action():
-        ad = name_entry.get().strip()
+        ad_sooyad = name_entry.get().strip()
         kullanici_adi = username_entry.get().strip()
         sifre = password_entry.get().strip()
 
@@ -39,8 +39,8 @@ def adminLogin():
 
             cursor.execute('''
                 SELECT * FROM adminler
-                WHERE ad=? AND kullanici_adi=? AND sifre=?
-            ''', (ad, kullanici_adi, sifre))
+                WHERE ad_sooyad=? AND kullanici_adi=? AND sifre=?
+            ''', (ad_sooyad, kullanici_adi, sifre))
             
             admin = cursor.fetchone()
             conn.close()
