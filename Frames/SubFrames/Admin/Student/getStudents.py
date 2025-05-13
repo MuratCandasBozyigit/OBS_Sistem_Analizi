@@ -37,16 +37,16 @@ def ogrencileri_listele_gui():
     scroll_frame = ctk.CTkScrollableFrame(win, width=1100, height=460)
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-    headers = ["Öğrenci ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara", "Fotoğraf", "Adres", "Şifre", "İşlemler"]
+    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara", "Fotoğraf", "Adres", "Şifre", "İşlemler"]
     for col, header in enumerate(headers):
-        ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 16, "bold")).grid(
-            row=0, column=col, padx=10, pady=5, sticky="w"
+        ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 15, "bold")).grid(
+            row=0, column=col, padx=15, pady=5, sticky="w"
         )
 
     ogrenciler = tum_ogrencileri_getir()
     if not ogrenciler:
-        ctk.CTkLabel(scroll_frame, text="Kayıtlı öğrenci bulunamadı.", font=("Arial", 14)).grid(
-            row=1, column=4, columnspan=10, pady=10
+        ctk.CTkLabel(scroll_frame, text="Kayıtlı öğrenci bulunamadı.", font=("Arial", 25,"bold")).grid(
+            row=3, column=5, columnspan=10, pady=10
         )
         return
 
@@ -59,7 +59,6 @@ def ogrencileri_listele_gui():
                 messagebox.showinfo("Silindi", "Öğrenci başarıyla silindi.")
             except Exception as e:
                 messagebox.showerror("Hata", f"Silinemedi!\n{e}")
-
     guncelle_form = {"frame": None}
 
     def guncelle_goster(row_idx, ogrenci_id, mevcut_ad, mevcut_soyad, mevcut_tel, mevcut_tckn, mevcut_numara, mevcut_foto, mevcut_adres, mevcut_sifre):
