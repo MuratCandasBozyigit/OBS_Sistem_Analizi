@@ -1,0 +1,2 @@
+#Bir oğretmen 30 ogrenci var diyleim mantıken otuz ogrenciye tıklayıp tek tek ogretmen atamak yerine öğretmene tıklarım ogrencileri listelerim
+#listlediğim ogrencileri checkbox ile seçerim seçtiklerimi 
