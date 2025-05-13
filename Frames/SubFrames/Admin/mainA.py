@@ -1,13 +1,12 @@
 import customtkinter as ctk
 
-def yon1():
-    print("Öğrenci kayıt sayfasına yönlendiriliyor...")
 
 def yon2():
     print("Öğretmen kayıt sayfasına yönlendiriliyor...")
 
 def admin_gui():
     from Frames.SubFrames.Admin.Class import getClasses  
+    from Frames.SubFrames.Admin.Student import getStudents
     import Frames  # Ana sayfaya dönüş için gerekli
 
     root = ctk.CTk()
@@ -19,7 +18,7 @@ def admin_gui():
     frame.grid_columnconfigure(0, weight=1)
 
     # Butonlar
-    addStudent_button = ctk.CTkButton(frame, text="Öğrenci İşlemleri", width=200, height=50, command=yon1)
+    addStudent_button = ctk.CTkButton(frame, text="Öğrenci İşlemleri", width=200, height=50,command=getStudents.ogrencileri_listele_gui )
     addStudent_button.grid(row=0, column=0, pady=10)
 
     addTeacher_button = ctk.CTkButton(frame, text="Öğretmen İşlemleri", width=200, height=50, command=yon2)

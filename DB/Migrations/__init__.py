@@ -1,4 +1,4 @@
 from .Admin import create_adminler_table
-from .Student import create_ogrenciler_table
+from .Student import create_ogrenciler_table,ogrenci_guncelle,ogrenci_sil,tum_ogrencileri_getir,ogrenci_ekle
 from .Teacher import create_ogretmenler_table
-from .Class import create_dersler_table,ders_guncelle,ders_sil,tum_dersleri_getir
+from .Class import create_dersler_table,ders_guncelle,ders_sil,tum_dersleri_getir,ders_ekle
