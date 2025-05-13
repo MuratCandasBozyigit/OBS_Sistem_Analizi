@@ -2,11 +2,12 @@ import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Teacher import tum_ogretmenleri_getir, ogretmen_sil, ogretmen_guncelle
 from . import createTeacher  # Öğretmen ekleme penceresini buradan çağırıyoruz
-from . import assignClassToTeacher
+from . import assignClassToTeacher  # Ders atama sayfası
+
 def ogretmenleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğretmen Yönetimi")
-    win.geometry("1100x700")
+    win.geometry("1200x700")  # Genişletildi çünkü "Ders Ata" eklendi
 
     title = ctk.CTkLabel(win, text="Tüm Öğretmenler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
@@ -31,10 +32,10 @@ def ogretmenleri_listele_gui():
     )
     ekle_btn.pack(side="left", padx=10)
 
-    scroll_frame = ctk.CTkScrollableFrame(win, width=1100, height=460)
+    scroll_frame = ctk.CTkScrollableFrame(win, width=1150, height=460)
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Branş", "Fotoğraf", "Adres", "Şifre", "İşlemler"]
+    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Branş", "Fotoğraf", "Adres", "Şifre", "Güncelle", "Sil", "Ders Ata"]
     for col, header in enumerate(headers):
         ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 15, "bold")).grid(
             row=0, column=col, padx=15, pady=5, sticky="w"
@@ -49,14 +50,6 @@ def ogretmenleri_listele_gui():
 
     guncelle_form = {"frame": None}
 
-    # def ders_ekle_ogretmen(ogretmen_id, frame):
-     
-    #  assignClassToTeacher.ders_ata_penceresi(ogretmen_id)
-    # ctk.CTkButton(
-    # scroll_frame, text="Ders Ata", font=("Arial", 12), fg_color="#4682B4", hover_color="#1E90FF",
-    # command=lambda oid=ogretmen_id: ders_ekle_ogretmen(oid, scroll_frame)
-    #                             ).grid(row=i, column=11, padx=5, pady=5)
-
     def sil_ogretmen(ogretmen_id, frame):
         confirm = messagebox.askyesno("Öğretmeni Sil", f"ID: {ogretmen_id} olan öğretmeni silmek istiyor musunuz?")
         if confirm:
@@ -64,6 +57,7 @@ def ogretmenleri_listele_gui():
                 ogretmen_sil(ogretmen_id)
                 frame.destroy()
                 messagebox.showinfo("Silindi", "Öğretmen başarıyla silindi.")
+                refresh()
             except Exception as e:
                 messagebox.showerror("Hata", f"Silinemedi!\n{e}")
 
@@ -72,13 +66,12 @@ def ogretmenleri_listele_gui():
             guncelle_form["frame"].destroy()
 
         form = ctk.CTkFrame(scroll_frame, fg_color="#F0F0F0")
-        form.grid(row=row_idx+1, column=0, columnspan=10, pady=(5, 15), sticky="ew", padx=10)
+        form.grid(row=row_idx+1, column=0, columnspan=13, pady=(5, 15), sticky="ew", padx=10)
 
         def iptal_et():
             form.destroy()
             guncelle_form["frame"] = None
 
-        # Giriş Alanları
         def add_label_entry(row, col, text, mevcut, show=None):
             ctk.CTkLabel(form, text=text, font=("Arial", 13)).grid(row=row, column=col, padx=5, pady=5, sticky="w")
             entry = ctk.CTkEntry(form, width=200, show=show)
@@ -112,8 +105,7 @@ def ogretmenleri_listele_gui():
             try:
                 ogretmen_guncelle(ogretmen_id, yeni_ad, yeni_soyad, yeni_foto, yeni_adres, yeni_tel, yeni_tckn, yeni_brans, yeni_sifre)
                 messagebox.showinfo("Başarılı", "Öğretmen güncellendi.")
-                win.destroy()
-                ogretmenleri_listele_gui()
+                refresh()
             except Exception as e:
                 messagebox.showerror("Hata", f"Güncelleme hatası:\n{e}")
 
@@ -132,12 +124,16 @@ def ogretmenleri_listele_gui():
 
         ctk.CTkButton(
             scroll_frame, text="Güncelle", font=("Arial", 12), fg_color="#FFA500", hover_color="#FF8C00",
-            command=lambda row=i, oid=ogretmen_id: guncelle_goster(
-                row, oid, ad, soyad, tel, tckn, brans, foto, adres, sifre
-            )
+            command=lambda row=i, oid=ogretmen_id, a=ad, s=soyad, t=tel, tc=tckn, b=brans, f=foto, adr=adres, sif=sifre:
+            guncelle_goster(row, oid, a, s, t, tc, b, f, adr, sif)
         ).grid(row=i, column=9, padx=5, pady=5)
 
         ctk.CTkButton(
             scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
             command=lambda oid=ogretmen_id: sil_ogretmen(oid, scroll_frame)
         ).grid(row=i, column=10, padx=5, pady=5)
+
+        ctk.CTkButton(
+            scroll_frame, text="Ders Ata", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
+            command=lambda oid=ogretmen_id: assignClassToTeacher.ders_ekle_ogretmen(oid, win)
+        ).grid(row=i, column=11, padx=5, pady=5)

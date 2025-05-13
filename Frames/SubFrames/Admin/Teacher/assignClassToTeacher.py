@@ -9,7 +9,7 @@ from tkinter import messagebox
 from DB.Migrations.Class import tum_dersleri_getir
 from DB.Migrations.ModelBuilder.TeacherCourse import ogretmene_ders_ata
 
-def ders_ata_penceresi(ogretmen_id):
+def ders_ekle_ogretmen(ogretmen_id, parent):
     pencere = ctk.CTkToplevel()
     pencere.title("Ders Ata")
     pencere.geometry("400x400")
