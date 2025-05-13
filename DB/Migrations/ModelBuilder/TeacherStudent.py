@@ -16,12 +16,12 @@ def ogretmenin_ogrencilerini_getir(ogretmen_id):
     cursor.execute('''
         SELECT d.ogrenci_id, d.ogrenci_adı,d.ogrenci_soyadı
         FROM ogrenciler d
-        JOIN ogretmen_ogrenci od ON d.ogrenci_id = od.ders_id
+        JOIN ogretmen_ogrenci od ON d.ogrenci_id = od.ogrenci_id
         WHERE od.ogretmen_id = ?
     ''', (ogretmen_id,))
-    dersler = cursor.fetchall()
+    ogrenciler = cursor.fetchall()
     conn.close()
-    return dersler
+    return ogrenciler
 
 def ogretmene_ogrencilerini_sil(ogretmen_id, ogrenci_id):
     conn = get_connection()
