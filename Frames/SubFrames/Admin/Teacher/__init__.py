@@ -1,2 +1,2 @@
-from .createTeacher import *
-from .getTeachers import *
+from .createTeacher import ogretmen_ekleme_sayfasi
+from .getTeachers import ogretmenleri_listele_gui

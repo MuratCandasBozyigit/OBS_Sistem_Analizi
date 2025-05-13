@@ -18,7 +18,7 @@ def admin_gui():
     addStudent_button = ctk.CTkButton(frame, text="Öğrenci İşlemleri", width=200, height=50,command=getStudents.ogrencileri_listele_gui )
     addStudent_button.grid(row=0, column=0, pady=10)
 
-    addTeacher_button = ctk.CTkButton(frame, text="Öğretmen İşlemleri", width=200, height=50, )
+    addTeacher_button = ctk.CTkButton(frame, text="Öğretmen İşlemleri", width=200, height=50, command=getTeachers.ogretmenleri_listele_gui)
     addTeacher_button.grid(row=1, column=0, pady=10)
 
     addClass_button = ctk.CTkButton(frame, text="Ders İşlemleri", width=200, height=50,
