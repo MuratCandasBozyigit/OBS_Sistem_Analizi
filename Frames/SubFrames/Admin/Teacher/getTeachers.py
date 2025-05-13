@@ -3,7 +3,7 @@ from tkinter import messagebox
 from DB.Migrations.Teacher import tum_ogretmenleri_getir, ogretmen_sil, ogretmen_guncelle
 from . import createTeacher  # Öğretmen ekleme penceresini buradan çağırıyoruz
 from . import assignClassToTeacher  # Ders atama sayfası
-
+from . import assignStudentsToTeacher
 def ogretmenleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğretmen Yönetimi")
@@ -137,3 +137,8 @@ def ogretmenleri_listele_gui():
             scroll_frame, text="Ders Ata", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
             command=lambda oid=ogretmen_id: assignClassToTeacher.ders_ekle_ogretmen(oid, win)
         ).grid(row=i, column=11, padx=5, pady=5)
+
+        ctk.CTkButton(
+            scroll_frame, text="Öğrenci Ekle", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
+            command=lambda oid=ogretmen_id: assignStudentsToTeacher.ogrenci_ekle_ogretmen(oid, win)
+        ).grid(row=i+1, column=11, padx=5, pady=5)

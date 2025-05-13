@@ -8,7 +8,7 @@ from DB.connection import get_connection
 #     conn.close()
 
 
-def ogretmen_sil(ogrenci_id):
+def ogrenci_sil(ogrenci_id):
     conn = get_connection()
     cursor = conn.cursor()
 
