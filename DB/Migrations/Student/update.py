@@ -10,7 +10,7 @@ def ogrenci_guncelle(ogrenci_id, ogrenci_adi, ogrenci_soyadi, ogrenci_fotograf,
         # Güncelleme sorgusunu çalıştır
         cursor.execute("""
             UPDATE ogrenciler
-            SET ogrenci_adi = ?, ogrenci_soyadi = ?, ogrenci_fotoğraf = ?, 
+            SET ogrenci_adı = ?, ogrenci_soyadı = ?, ogrenci_fotoğraf = ?, 
                 ogrenci_adres = ?, ogrenci_tel_no = ?, ogrenci_tckn = ?, 
                 ogrenci_numarası = ?, sifre = ?
             WHERE ogrenci_id = ?
