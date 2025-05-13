@@ -14,7 +14,7 @@ def ogretmenin_derslerini_getir(ogretmen_id):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute('''
-        SELECT d.ders_id, d.ders_adi
+        SELECT d.ders_id, d.ders_adı
         FROM dersler d
         JOIN ogretmen_ders od ON d.ders_id = od.ders_id
         WHERE od.ogretmen_id = ?
