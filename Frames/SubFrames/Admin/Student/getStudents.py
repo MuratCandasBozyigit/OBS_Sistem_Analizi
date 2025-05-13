@@ -117,20 +117,19 @@ def ogrencileri_listele_gui():
     for i, ogrenci in enumerate(ogrenciler, start=1):
         ogrenci_id, ad, soyad, foto, adres, tel, tckn, numara, sifre = ogrenci
 
-        row_frame = ctk.CTkFrame(scroll_frame, fg_color="transparent")
-        row_frame.grid(row=i, column=0, columnspan=10, sticky="ew", pady=2, padx=5)
-
         for idx, val in enumerate([ogrenci_id, ad, soyad, tel, tckn, numara, foto, adres, sifre]):
-            ctk.CTkLabel(row_frame, text=str(val), font=("Arial", 12)).grid(row=0, column=idx, padx=5, pady=5)
+            ctk.CTkLabel(scroll_frame, text=str(val), font=("Arial", 12)).grid(
+                row=i, column=idx, padx=5, pady=5, sticky="w"
+            )
 
         ctk.CTkButton(
-            row_frame, text="Güncelle", font=("Arial", 12), fg_color="#FFA500", hover_color="#FF8C00",
+            scroll_frame, text="Güncelle", font=("Arial", 12), fg_color="#FFA500", hover_color="#FF8C00",
             command=lambda row=i, oid=ogrenci_id: guncelle_goster(
                 row, oid, ad, soyad, tel, tckn, numara, foto, adres, sifre
             )
-        ).grid(row=0, column=9, padx=5, pady=5)
+        ).grid(row=i, column=9, padx=5, pady=5)
 
         ctk.CTkButton(
-            row_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
-            command=lambda oid=ogrenci_id, frame=row_frame: sil_ogrenci(oid, frame)
-        ).grid(row=0, column=10, padx=5, pady=5)
+            scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
+            command=lambda oid=ogrenci_id: sil_ogrenci(oid, scroll_frame)
+        ).grid(row=i, column=10, padx=5, pady=5)
