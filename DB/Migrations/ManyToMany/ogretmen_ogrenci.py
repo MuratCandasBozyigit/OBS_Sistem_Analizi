@@ -1,6 +1,6 @@
 from DB.connection import get_connection
 
-def create_ogretmen_ders_table():
+def create_ogretmen_ogrenci_table():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute('''
