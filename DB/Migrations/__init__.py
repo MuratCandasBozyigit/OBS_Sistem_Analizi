@@ -3,4 +3,4 @@ from .Student import create_ogrenciler_table,ogrenci_guncelle,ogrenci_sil,tum_og
 from .Teacher import create_ogretmenler_table,ogretmen_sil,ogretmen_guncelle,tum_ogretmenleri_getir,ogretmen_ekle
 from .Class import create_dersler_table,ders_guncelle,ders_sil,tum_dersleri_getir,ders_ekle
 from .ManyToMany import create_ogretmen_ders_table
-from .ModelBuilder import ogretmene_ait_tum_dersleri_sil,ogretmene_ders_ata
+from .ModelBuilder import ogretmene_ders_sil,ogretmene_ders_ata,ogretmenin_derslerini_getir

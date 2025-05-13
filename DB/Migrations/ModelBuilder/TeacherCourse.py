@@ -23,12 +23,23 @@ def ogretmenin_derslerini_getir(ogretmen_id):
     conn.close()
     return dersler
 
-def ogretmene_ait_tum_dersleri_sil(ogretmen_id):
+def ogretmene_ders_sil(ogretmen_id, ders_id):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute('''
         DELETE FROM ogretmen_ders
-        WHERE ogretmen_id = ?
-    ''', (ogretmen_id,))
+        WHERE ogretmen_id = ? AND ders_id = ?
+    ''', (ogretmen_id, ders_id))
     conn.commit()
     conn.close()
+
+
+# def ogretmene_ait_tum_dersleri_sil(ogretmen_id):
+#     conn = get_connection()
+#     cursor = conn.cursor()
+#     cursor.execute('''
+#         DELETE FROM ogretmen_ders
+#         WHERE ogretmen_id = ?
+#     ''', (ogretmen_id,))
+#     conn.commit()
+#     conn.close()

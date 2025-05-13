@@ -1,11 +1,10 @@
-# assignClassToTeacher.py
-
 import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Class import tum_dersleri_getir
 from DB.Migrations.ModelBuilder.TeacherCourse import (
     ogretmene_ders_ata,
-    ogretmenin_derslerini_getir
+    ogretmenin_derslerini_getir,
+    ogretmene_ders_sil  # Yeni fonksiyon
 )
 
 def ders_ekle_ogretmen(ogretmen_id, parent=None):
@@ -16,8 +15,8 @@ def ders_ekle_ogretmen(ogretmen_id, parent=None):
     ctk.CTkLabel(pencere, text="Ders Seç:", font=("Arial", 16)).pack(pady=10)
 
     try:
-        dersler = tum_dersleri_getir()  # [(ders_id, ders_adi, ders_saati, ...)]
-        ogretmenin_dersleri = ogretmenin_derslerini_getir(ogretmen_id)  # [(ders_id, ders_adi)]
+        dersler = tum_dersleri_getir() 
+        ogretmenin_dersleri = ogretmenin_derslerini_getir(ogretmen_id)  
         atanmis_ders_idler = {ders_id for ders_id, _ in ogretmenin_dersleri}
     except Exception as e:
         messagebox.showerror("Hata", f"Dersler alınamadı:\n{e}")
@@ -37,7 +36,7 @@ def ders_ekle_ogretmen(ogretmen_id, parent=None):
                 pencere,
                 text=ders_adi,
                 variable=var,
-                fg_color="green",  # Tik kutusunun iç rengi
+                fg_color="green",  
                 hover_color="darkgreen"
             )
         else:
@@ -45,6 +44,12 @@ def ders_ekle_ogretmen(ogretmen_id, parent=None):
 
         chk.pack(anchor="w", padx=20)
         secilen_dersler.append((ders_id, var))
+
+        def uncheck_ders(ders_id, var):
+            if not var.get():
+                ogretmene_ders_sil(ogretmen_id, ders_id)
+
+        chk.configure(command=lambda ders_id=ders_id, var=var: uncheck_ders(ders_id, var))
 
     def kaydet():
         eklendi = 0
