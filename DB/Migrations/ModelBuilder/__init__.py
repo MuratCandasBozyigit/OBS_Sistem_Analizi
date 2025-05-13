@@ -1,0 +1,1 @@
+from .TeacherCourse import ogretmene_ders_ata,ogretmene_ait_tum_dersleri_sil,ogretmenin_derslerini_getir

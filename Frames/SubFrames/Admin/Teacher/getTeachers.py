@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Teacher import tum_ogretmenleri_getir, ogretmen_sil, ogretmen_guncelle
 from . import createTeacher  # Öğretmen ekleme penceresini buradan çağırıyoruz
-
+from . import assignClassToTeacher
 def ogretmenleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğretmen Yönetimi")
@@ -49,8 +49,13 @@ def ogretmenleri_listele_gui():
 
     guncelle_form = {"frame": None}
 
-    def ders_ekle_ogretmen(ogretmen_id,frame):
-        pass
+    # def ders_ekle_ogretmen(ogretmen_id, frame):
+     
+    #  assignClassToTeacher.ders_ata_penceresi(ogretmen_id)
+    # ctk.CTkButton(
+    # scroll_frame, text="Ders Ata", font=("Arial", 12), fg_color="#4682B4", hover_color="#1E90FF",
+    # command=lambda oid=ogretmen_id: ders_ekle_ogretmen(oid, scroll_frame)
+    #                             ).grid(row=i, column=11, padx=5, pady=5)
 
     def sil_ogretmen(ogretmen_id, frame):
         confirm = messagebox.askyesno("Öğretmeni Sil", f"ID: {ogretmen_id} olan öğretmeni silmek istiyor musunuz?")
