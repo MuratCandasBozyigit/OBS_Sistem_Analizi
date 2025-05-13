@@ -1,25 +1,29 @@
-#ogretmen seç tuşa bas dersler listelensin ve dersi seç tada sonra kaydete bas ders veya dersleri seçmen lazım ,
-# çok ii lan boyle kendime not almak mantıklı ha obsidian kadar bu da iş yapıyor 
-
-#GetTeacher.py dan buton ile bu sayfaya yonlendirme yap ardından bu yonlendirme ile bilrikte pencere açılır açılan pencerede ekleme işlmeini yaparsın
-#az mola vereceğim ondan kendime notlar alıyorums 
+# assignClassToTeacher.py
 
 import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Class import tum_dersleri_getir
 from DB.Migrations.ModelBuilder.TeacherCourse import ogretmene_ders_ata
 
-def ders_ekle_ogretmen(ogretmen_id, parent):
+def ders_ekle_ogretmen(ogretmen_id, parent=None):
     pencere = ctk.CTkToplevel()
     pencere.title("Ders Ata")
-    pencere.geometry("400x400")
-
+    pencere.geometry("400x500")
+    
     ctk.CTkLabel(pencere, text="Ders Seç:", font=("Arial", 16)).pack(pady=10)
 
-    dersler = tum_dersleri_getir()
+    try:
+        dersler = tum_dersleri_getir()  # [(ders_id, ders_adi), ...]
+    except Exception as e:
+        messagebox.showerror("Hata", f"Dersler alınamadı:\n{e}")
+        pencere.destroy()
+        return
+
     secilen_dersler = []
 
-    for ders_id, ders_adi in dersler:
+    for ders in dersler:
+        ders_id = ders[0]
+        ders_adi = ders[1]
         var = ctk.BooleanVar()
         chk = ctk.CTkCheckBox(pencere, text=ders_adi, variable=var)
         chk.pack(anchor="w", padx=20)
@@ -31,10 +35,12 @@ def ders_ekle_ogretmen(ogretmen_id, parent):
             if var.get():
                 ogretmene_ders_ata(ogretmen_id, ders_id)
                 eklendi += 1
-        if eklendi:
+
+        if eklendi > 0:
             messagebox.showinfo("Başarılı", f"{eklendi} ders atandı.")
         else:
             messagebox.showwarning("Uyarı", "Hiçbir ders seçilmedi.")
+        
         pencere.destroy()
 
     ctk.CTkButton(pencere, text="Kaydet", command=kaydet).pack(pady=20)
