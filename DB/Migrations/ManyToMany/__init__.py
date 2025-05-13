@@ -1,0 +1,1 @@
+from .ogretmen_ders import create_ogretmen_ders_table
