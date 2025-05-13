@@ -131,14 +131,14 @@ def ogretmenleri_listele_gui():
         ctk.CTkButton(
             scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
             command=lambda oid=ogretmen_id: sil_ogretmen(oid, scroll_frame)
-        ).grid(row=i+1, column=9, padx=5, pady=5)
+        ).grid(row=i, column=10, padx=5, pady=5)
 
         ctk.CTkButton(
             scroll_frame, text="Ders Ekle", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
             command=lambda oid=ogretmen_id: assignClassToTeacher.ders_ekle_ogretmen(oid, win)
-        ).grid(row=i, column=10, padx=5, pady=5)
+        ).grid(row=i, column=11, padx=5, pady=5)
 
         ctk.CTkButton(
             scroll_frame, text="Öğrenci Ekle", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
             command=lambda oid=ogretmen_id: assignStudentsToTeacher.ogrenci_ekle_ogretmen(oid, win)
-        ).grid(row=i+1, column=10, padx=5, pady=5)
+        ).grid(row=i+1, column=12, padx=5, pady=5)

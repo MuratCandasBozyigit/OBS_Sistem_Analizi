@@ -64,9 +64,9 @@ def ogrenci_ekle_ogretmen(ogretmen_id, parent=None):
                 eklendi += 1
 
         if eklendi > 0:
-            messagebox.showinfo("Başarılı", f"{eklendi} ders atandı.")
+            messagebox.showinfo("Başarılı", f"{eklendi} öğrenci eklendi.")
         else:
-            messagebox.showwarning("Uyarı", "Hiçbir ders seçilmedi.")
+            messagebox.showwarning("Uyarı", "Hiçbir öğrenci seçilmedi.")
         
         pencere.destroy()
 
