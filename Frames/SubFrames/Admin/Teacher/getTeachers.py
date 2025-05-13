@@ -49,6 +49,9 @@ def ogretmenleri_listele_gui():
 
     guncelle_form = {"frame": None}
 
+    def ders_ekle_ogretmen(ogretmen_id,frame):
+        pass
+
     def sil_ogretmen(ogretmen_id, frame):
         confirm = messagebox.askyesno("Öğretmeni Sil", f"ID: {ogretmen_id} olan öğretmeni silmek istiyor musunuz?")
         if confirm:
