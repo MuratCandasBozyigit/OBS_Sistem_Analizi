@@ -7,7 +7,7 @@ from . import assignStudentsToTeacher
 def ogretmenleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğretmen Yönetimi")
-    win.geometry("1200x700")  # Genişletildi çünkü "Ders Ata" eklendi
+    win.geometry("1200x650")  # Genişletildi çünkü "Ders Ata" eklendi
 
     title = ctk.CTkLabel(win, text="Tüm Öğretmenler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
@@ -35,7 +35,7 @@ def ogretmenleri_listele_gui():
     scroll_frame = ctk.CTkScrollableFrame(win, width=1150, height=460)
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Branş", "Fotoğraf", "Adres", "Şifre", "Güncelle", "Sil", "Ders Ata"]
+    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Branş", "Fotoğraf", "Adres", "Şifre", "Güncelle/Sil", "Ders/Öğrenci Ekle"]
     for col, header in enumerate(headers):
         ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 15, "bold")).grid(
             row=0, column=col, padx=15, pady=5, sticky="w"
@@ -131,14 +131,14 @@ def ogretmenleri_listele_gui():
         ctk.CTkButton(
             scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
             command=lambda oid=ogretmen_id: sil_ogretmen(oid, scroll_frame)
-        ).grid(row=i, column=10, padx=5, pady=5)
+        ).grid(row=i+1, column=9, padx=5, pady=5)
 
         ctk.CTkButton(
-            scroll_frame, text="Ders Ata", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
+            scroll_frame, text="Ders Ekle", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
             command=lambda oid=ogretmen_id: assignClassToTeacher.ders_ekle_ogretmen(oid, win)
-        ).grid(row=i, column=11, padx=5, pady=5)
+        ).grid(row=i, column=10, padx=5, pady=5)
 
         ctk.CTkButton(
             scroll_frame, text="Öğrenci Ekle", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
             command=lambda oid=ogretmen_id: assignStudentsToTeacher.ogrenci_ekle_ogretmen(oid, win)
-        ).grid(row=i+1, column=11, padx=5, pady=5)
+        ).grid(row=i+1, column=10, padx=5, pady=5)
