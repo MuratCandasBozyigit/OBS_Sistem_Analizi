@@ -134,6 +134,8 @@ def ogrencileri_listele_gui():
         ).grid(row=i, column=10, padx=5, pady=5)
 
         ctk.CTkButton(
-            scroll_frame, text="Ders İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
-            command=lambda oid=ogrenci_id: assignClassToStudent(oid)
-        ).grid(row=i, column=11, padx=5, pady=5)
+    scroll_frame, text="Ders İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
+    command=lambda oid=ogrenci_id: assignClassToStudent.ders_ekle_ogrenci(oid, scroll_frame)
+).grid(row=i, column=11, padx=5, pady=5)
+
+
