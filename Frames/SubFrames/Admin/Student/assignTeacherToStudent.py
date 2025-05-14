@@ -1,42 +1,41 @@
 import customtkinter as ctk
 from tkinter import messagebox
-from DB.Migrations.Student import tum_ogrencileri_getir
+from DB.Migrations.Teacher import tum_ogretmenleri_getir
 from DB.Migrations.ModelBuilder.TeacherStudent import (
     ogretmene_ogrenci_ata,
     ogretmenden_ogrenci_sil,
-    ogrencinin_ogretmenlerini_getir,
-    ogretmenin_ogrencilerini_getir
+    ogrencinin_ogretmenlerini_getir
 )
 
-def ogrenci_ekle_ogretmen(ogretmen_id, parent=None):
+def ogretmen_ekle_ogrenci(ogrenci_id, parent=None):
     pencere = ctk.CTkToplevel()
-    pencere.title("Öğrenci Ekle")
+    pencere.title("Öğretmen Ata")
     pencere.geometry("400x500")
     
-    ctk.CTkLabel(pencere, text="Öğrenci Seç:", font=("Arial", 16)).pack(pady=10)
+    ctk.CTkLabel(pencere, text="Öğretmen Seç:", font=("Arial", 16)).pack(pady=10)
 
     try:
-        ogrenciler = tum_ogrencileri_getir()
-        ogretmenin_ogrencileri = ogretmenin_ogrencilerini_getir(ogretmen_id)
-        atanmis_ogrenci_idler = {ogrenci[0] for ogrenci in ogretmenin_ogrencileri}
+        ogretmenler = tum_ogretmenleri_getir()
+        ogrencinin_ogretmenleri = ogrencinin_ogretmenlerini_getir(ogrenci_id)
+        atanmis_ogretmen_idler = {ogretmen[0] for ogretmen in ogrencinin_ogretmenleri}
     except Exception as e:
-        messagebox.showerror("Hata", f"Öğrenciler alınamadı:\n{e}")
+        messagebox.showerror("Hata", f"Öğretmenler alınamadı:\n{e}")
         pencere.destroy()
         return
 
-    secilen_ogrenciler = []
+    secilen_ogretmenler = []
 
-    for ogrenci in ogrenciler:
-        ogrenci_id = ogrenci[0]
-        ogrenci_adi = ogrenci[1]
-        ogrenci_soyadi = ogrenci[2]
+    for ogretmen in ogretmenler:
+        ogretmen_id = ogretmen[0]
+        ogretmen_adi = ogretmen[1]
+        ogretmen_soyadi = ogretmen[2]
         var = ctk.BooleanVar()
 
-        if ogrenci_id in atanmis_ogrenci_idler:
+        if ogretmen_id in atanmis_ogretmen_idler:
             var.set(True)
             chk = ctk.CTkCheckBox(
                 pencere,
-                text=ogrenci_adi + " " + ogrenci_soyadi,
+                text=f"{ogretmen_adi} {ogretmen_soyadi}",
                 variable=var,
                 fg_color="green",
                 hover_color="darkgreen"
@@ -44,32 +43,32 @@ def ogrenci_ekle_ogretmen(ogretmen_id, parent=None):
         else:
             chk = ctk.CTkCheckBox(
                 pencere,
-                text=ogrenci_adi + " " + ogrenci_soyadi,
+                text=f"{ogretmen_adi} {ogretmen_soyadi}",
                 variable=var
             )
 
         chk.pack(anchor="w", padx=20)
-        secilen_ogrenciler.append((ogrenci_id, var))
+        secilen_ogretmenler.append((ogretmen_id, var))
 
     def kaydet():
         eklendi = 0
         cikarildi = 0
 
-        for ogrenci_id, var in secilen_ogrenciler:
+        for ogretmen_id, var in secilen_ogretmenler:
             if var.get():
-                if ogrenci_id not in atanmis_ogrenci_idler:
+                if ogretmen_id not in atanmis_ogretmen_idler:
                     ogretmene_ogrenci_ata(ogretmen_id, ogrenci_id)
                     eklendi += 1
             else:
-                if ogrenci_id in atanmis_ogrenci_idler:
+                if ogretmen_id in atanmis_ogretmen_idler:
                     ogretmenden_ogrenci_sil(ogretmen_id, ogrenci_id)
                     cikarildi += 1
 
         mesaj = []
         if eklendi > 0:
-            mesaj.append(f"{eklendi} öğrenci eklendi.")
+            mesaj.append(f"{eklendi} öğretmen atandı.")
         if cikarildi > 0:
-            mesaj.append(f"{cikarildi} öğrenci çıkarıldı.")
+            mesaj.append(f"{cikarildi} öğretmen çıkarıldı.")
         if not mesaj:
             mesaj.append("Hiçbir değişiklik yapılmadı.")
 
