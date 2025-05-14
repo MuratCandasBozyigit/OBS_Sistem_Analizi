@@ -1,12 +1,11 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.ModelBuilder.TeacherCourse import (
-
     ogretmene_ders_ata,
     ogretmenin_derslerini_getir,
     ogretmene_ders_sil
 )
-from DB.Migrations.ModelBuilder.StudentCourse import(
+from DB.Migrations.ModelBuilder.StudentCourse import (
     ogrenci_ders_ata,
     ogrencinin_derslerini_getir,
     ogrencinin_ders_sil,
@@ -14,17 +13,6 @@ from DB.Migrations.ModelBuilder.StudentCourse import(
 from DB.Migrations.Class.read import tum_dersleri_getir
 from DB.Migrations.Student import tum_ogrencileri_getir
 from DB.Migrations.Teacher import tum_ogretmenleri_getir
-
-
-def ders_ata_sayfasi():
-    pencere = ctk.CTkToplevel()
-    pencere.title("Ders Atama İşlemleri")
-    pencere.geometry("400x300")
-
-    ctk.CTkLabel(pencere, text="İşlem Seç", font=("Arial", 16)).pack(pady=20)
-
-    ctk.CTkButton(pencere, text="Öğrenciye Ders Ata", command=ogrenci_ders_ata_penceresi).pack(pady=10)
-    ctk.CTkButton(pencere, text="Öğretmene Ders Ata", command=ogretmen_ders_ata_penceresi).pack(pady=10)
 
 
 def ogrenci_ders_ata_penceresi():
@@ -41,7 +29,7 @@ def ogrenci_ders_ata_penceresi():
         return
 
     secilen_ogrenci = ctk.StringVar()
-    secilen_dersler = []
+    checkboxlar = []
 
     ctk.CTkLabel(pencere, text="Öğrenci Seç:", font=("Arial", 14)).pack(pady=10)
     ogrenci_menu = ctk.CTkOptionMenu(pencere, variable=secilen_ogrenci,
@@ -50,8 +38,6 @@ def ogrenci_ders_ata_penceresi():
 
     ders_frame = ctk.CTkFrame(pencere)
     ders_frame.pack(pady=20)
-
-    checkboxlar = []
 
     for ders in dersler:
         ders_id, ders_adi = ders

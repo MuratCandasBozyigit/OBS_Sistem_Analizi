@@ -124,6 +124,10 @@ def dersleri_listele_gui():
                       command=lambda idx=i, d_id=ders_id, d_adi=ders_adi, d_saat=ders_saati:
                       guncelle_goster(idx, d_id, d_adi, d_saat)).grid(row=0, column=4, padx=(5, 10), pady=5)
 
-        ctk.CTkButton(row_frame, text="Ders Ata", fg_color="#1E90FF", hover_color="#0066CC",
+        ctk.CTkButton(row_frame, text="Ders İşlemleri", fg_color="#1E90FF", hover_color="#0066CC",
                       width=90, height=28, font=("Arial", 12),
-                      command=assignTeacherAndStudentToClass.ders_ata_sayfasi).grid(row=0, column=5, padx=(5, 10), pady=5)
+                      command=assignTeacherAndStudentToClass.ogrenci_ders_ata_penceresi).grid(row=0, column=5, padx=(5, 10), pady=5)
+        
+        ctk.CTkButton(row_frame, text="Öğretmen İşlemleri", fg_color="#1E90FF", hover_color="#0066CC",
+                      width=90, height=28, font=("Arial", 12),
+                      command=assignTeacherAndStudentToClass.ogretmen_ders_ata_penceresi).grid(row=0, column=6, padx=(5, 10), pady=5)
