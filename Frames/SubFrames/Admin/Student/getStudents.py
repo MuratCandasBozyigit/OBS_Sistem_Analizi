@@ -1,12 +1,13 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Student import tum_ogrencileri_getir, ogrenci_sil, ogrenci_guncelle
-from . import createStudent
+from . import createStudent  # Öğrenci ekleme penceresi
+from . import assignClassToStudent
 
 def ogrencileri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğrenci Yönetimi")
-    win.geometry("1100x700")
+    win.geometry("1300x650")
 
     title = ctk.CTkLabel(win, text="Tüm Öğrenciler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
@@ -31,10 +32,10 @@ def ogrencileri_listele_gui():
     )
     ekle_btn.pack(side="left", padx=10)
 
-    scroll_frame = ctk.CTkScrollableFrame(win, width=1100, height=460)
+    scroll_frame = ctk.CTkScrollableFrame(win, width=1200, height=460)
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara", "Fotoğraf", "Adres", "Şifre", "İşlemler"]
+    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara", "Fotoğraf", "Adres", "Şifre", "Güncelle", "Sil", "Ders İşlemleri"]
     for col, header in enumerate(headers):
         ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 15, "bold")).grid(
             row=0, column=col, padx=15, pady=5, sticky="w"
@@ -49,13 +50,13 @@ def ogrencileri_listele_gui():
 
     guncelle_form = {"frame": None}
 
-    def sil_ogrenci(ogrenci_id, frame):
+    def sil_ogrenci(ogrenci_id):
         confirm = messagebox.askyesno("Öğrenciyi Sil", f"ID: {ogrenci_id} olan öğrenciyi silmek istiyor musunuz?")
         if confirm:
             try:
                 ogrenci_sil(ogrenci_id)
-                frame.destroy()
                 messagebox.showinfo("Silindi", "Öğrenci başarıyla silindi.")
+                refresh()
             except Exception as e:
                 messagebox.showerror("Hata", f"Silinemedi!\n{e}")
 
@@ -64,13 +65,12 @@ def ogrencileri_listele_gui():
             guncelle_form["frame"].destroy()
 
         form = ctk.CTkFrame(scroll_frame, fg_color="#F0F0F0")
-        form.grid(row=row_idx+1, column=0, columnspan=10, pady=(5, 15), sticky="ew", padx=10)
+        form.grid(row=row_idx+1, column=0, columnspan=12, pady=(5, 15), sticky="ew", padx=10)
 
         def iptal_et():
             form.destroy()
             guncelle_form["frame"] = None
 
-        # Giriş Alanları
         def add_label_entry(row, col, text, mevcut, show=None):
             ctk.CTkLabel(form, text=text, font=("Arial", 13)).grid(row=row, column=col, padx=5, pady=5, sticky="w")
             entry = ctk.CTkEntry(form, width=200, show=show)
@@ -82,7 +82,7 @@ def ogrencileri_listele_gui():
         entry_soyad = add_label_entry(0, 3, "Soyadı:", mevcut_soyad)
         entry_tel = add_label_entry(1, 1, "Telefon No:", mevcut_tel)
         entry_tckn = add_label_entry(1, 3, "TCKN:", mevcut_tckn)
-        entry_numara = add_label_entry(2, 1, "Numara:", mevcut_numara)
+        entry_numara = add_label_entry(2, 1, "Öğrenci No:", mevcut_numara)
         entry_foto = add_label_entry(2, 3, "Fotoğraf URL:", mevcut_foto)
         entry_adres = add_label_entry(3, 1, "Adres:", mevcut_adres)
         entry_sifre = add_label_entry(3, 3, "Şifre:", mevcut_sifre, show="*")
@@ -104,8 +104,7 @@ def ogrencileri_listele_gui():
             try:
                 ogrenci_guncelle(ogrenci_id, yeni_ad, yeni_soyad, yeni_foto, yeni_adres, yeni_tel, yeni_tckn, yeni_numara, yeni_sifre)
                 messagebox.showinfo("Başarılı", "Öğrenci güncellendi.")
-                win.destroy()
-                ogrencileri_listele_gui()
+                refresh()
             except Exception as e:
                 messagebox.showerror("Hata", f"Güncelleme hatası:\n{e}")
 
@@ -131,5 +130,12 @@ def ogrencileri_listele_gui():
 
         ctk.CTkButton(
             scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
-            command=lambda oid=ogrenci_id: sil_ogrenci(oid, scroll_frame)
+            command=lambda oid=ogrenci_id: sil_ogrenci(oid)
         ).grid(row=i, column=10, padx=5, pady=5)
+
+        ctk.CTkButton(
+    scroll_frame, text="Ders İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
+    command=lambda oid=ogrenci_id: assignClassToStudent.ders_ekle_ogrenci(oid, scroll_frame)
+).grid(row=i, column=11, padx=5, pady=5)
+
+
