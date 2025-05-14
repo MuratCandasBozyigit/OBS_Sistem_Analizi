@@ -7,7 +7,7 @@ from . import createClass
 def dersleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Ders Yönetimi")
-    win.geometry("700x600")
+    win.geometry("1100x600")
 
     title = ctk.CTkLabel(win, text="Tüm Dersler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
@@ -131,8 +131,19 @@ def dersleri_listele_gui():
                                      command=lambda idx=i, d_id=ders_id, d_adi=ders_adi, d_saat=ders_saati:
                                      guncelle_goster(idx, d_id, d_adi, d_saat))
 
+         # Yeni eklenen butonlar
+        ogrenci_btn = ctk.CTkButton(row_frame, text="Öğrenci'ler", fg_color="#1E90FF", hover_color="#0066CC",
+                                        width=90, height=28, font=("Arial", 12),
+                                        command=lambda d_id=ders_id: print(f"Öğrenciler göster: {d_id}"))
+
+        ogretmen_btn = ctk.CTkButton(row_frame, text="Öğretmen'ler", fg_color="#1E90FF", hover_color="#0066CC",
+                                        width=100, height=28, font=("Arial", 12),
+                                        command=lambda d_id=ders_id: print(f"Öğretmenler göster: {d_id}"))
+
         label_id.grid(row=0, column=0, padx=10, pady=5, sticky="w")
         label_adi.grid(row=0, column=1, padx=10, pady=5, sticky="w")
         label_saat.grid(row=0, column=2, padx=10, pady=5, sticky="w")
         sil_btn.grid(row=0, column=3, padx=(5, 5), pady=5)
         guncelle_btn.grid(row=0, column=4, padx=(5, 10), pady=5)
+        ogrenci_btn.grid(row=0,column=5,padx=(5, 10), pady=5)
+        ogretmen_btn.grid(row=0,column=6,padx=(5, 10), pady=5)
