@@ -58,16 +58,42 @@ def ogrenci_ekle_ogretmen(ogretmen_id, parent=None):
 
     def kaydet():
         eklendi = 0
+        cikarildi = 0
+
+        for ogrenci_id, var in secilen_ogrenciler:
+            if var.get():
+                if ogrenci_id not in atanmis_ogrenci_idler:
+                    ogretmene_ogrenci_ata(ogretmen_id, ogrenci_id)
+                    eklendi += 1
+            else:
+                if ogrenci_id in atanmis_ogrenci_idler:
+                    ogretmene_ogrencilerini_sil(ogretmen_id, ogrenci_id)
+                    cikarildi += 1
+
+        mesaj = []
+        if eklendi > 0:
+            mesaj.append(f"{eklendi} öğrenci **eklendi**.")
+        if cikarildi > 0:
+            mesaj.append(f"{cikarildi} öğrenci **çıkarıldı**.")
+        if not mesaj:
+            mesaj.append("Hiçbir değişiklik yapılmadı.")
+
+        messagebox.showinfo("İşlem Tamamlandı", "\n".join(mesaj))
+        pencere.destroy()
+
+        eklendi = 0
         for ogrenci_id, var in secilen_ogrenciler:
             if var.get():
                 ogretmene_ogrenci_ata(ogretmen_id, ogrenci_id)
                 eklendi += 1
 
-        if eklendi > 0:
-            messagebox.showinfo("Başarılı", f"{eklendi} öğrenci eklendi.")
-        else:
-            messagebox.showwarning("Uyarı", "Hiçbir öğrenci seçilmedi.")
-        
-        pencere.destroy()
+            if eklendi > 0:
+                messagebox.showinfo("Başarılı", f"{eklendi} öğrenci eklendi.")
+            elif eklendi < 0:
+                messagebox.showinfo("Başarılı",f"{eklendi} ogrenci çıkarıldı.")
+            else:
+                messagebox.showwarning("Uyarı", "Hiçbir öğrenci seçilmedi.")
+            
+            pencere.destroy()
 
     ctk.CTkButton(pencere, text="Kaydet", command=kaydet).pack(pady=20)
