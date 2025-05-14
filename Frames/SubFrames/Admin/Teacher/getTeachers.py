@@ -4,6 +4,7 @@ from DB.Migrations.Teacher import tum_ogretmenleri_getir, ogretmen_sil, ogretmen
 from . import createTeacher  # Öğretmen ekleme penceresini buradan çağırıyoruz
 from . import assignClassToTeacher  # Ders atama sayfası
 from . import assignStudentsToTeacher
+
 def ogretmenleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğretmen Yönetimi")
