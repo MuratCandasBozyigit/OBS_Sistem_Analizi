@@ -5,3 +5,4 @@ from .Class import create_dersler_table,ders_guncelle,ders_sil,tum_dersleri_geti
 from .ManyToMany import create_ogretmen_ders_table,create_ogretmen_ogrenci_table
 from .ModelBuilder import ogretmene_ders_sil,ogretmene_ders_ata,ogretmenin_derslerini_getir
 from .ModelBuilder import ogretmenin_ogrencilerini_getir,ogretmene_ogrenci_ata,ogretmene_ogrencilerini_sil
+from .ModelBuilder import ogrenci_ders_ata,ogrencinin_ders_sil,ogrencinin_derslerini_getir
