@@ -3,7 +3,7 @@ from tkinter import messagebox
 from DB.Migrations.Student import tum_ogrencileri_getir, ogrenci_sil, ogrenci_guncelle
 from . import createStudent  # Öğrenci ekleme penceresi
 from . import assignClassToStudent
-
+from . import assignTeacherToStudent
 def ogrencileri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğrenci Yönetimi")
@@ -140,7 +140,7 @@ def ogrencileri_listele_gui():
 
         ctk.CTkButton(
             scroll_frame, text="Öğretmen İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
-            command=lambda oid=ogrenci_id: assignClassToStudent.ders_ekle_ogrenci(oid, scroll_frame)
+            command=lambda oid=ogrenci_id: assignTeacherToStudent.ogretmen_ekle_ogrenci(oid, scroll_frame)
         ).grid(row=i, column=12, padx=5, pady=5)
 
 
