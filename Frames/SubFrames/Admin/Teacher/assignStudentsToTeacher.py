@@ -3,7 +3,8 @@ from tkinter import messagebox
 from DB.Migrations.Student import tum_ogrencileri_getir
 from DB.Migrations.ModelBuilder.TeacherStudent import (
     ogretmene_ogrenci_ata,
-    ogretmene_ogrencilerini_sil,
+    ogretmenden_ogrenci_sil,
+    ogrencinin_ogretmenlerini_getir,
     ogretmenin_ogrencilerini_getir
 )
 
@@ -61,7 +62,7 @@ def ogrenci_ekle_ogretmen(ogretmen_id, parent=None):
                     eklendi += 1
             else:
                 if ogrenci_id in atanmis_ogrenci_idler:
-                    ogretmene_ogrencilerini_sil(ogretmen_id, ogrenci_id)
+                    ogretmenden_ogrenci_sil(ogretmen_id, ogrenci_id)
                     cikarildi += 1
 
         mesaj = []
