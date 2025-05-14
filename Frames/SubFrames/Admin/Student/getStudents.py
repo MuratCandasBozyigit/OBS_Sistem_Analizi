@@ -7,7 +7,7 @@ from . import assignClassToStudent
 def ogrencileri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğrenci Yönetimi")
-    win.geometry("1300x650")
+    win.geometry("1350x650")
 
     title = ctk.CTkLabel(win, text="Tüm Öğrenciler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
@@ -141,6 +141,6 @@ def ogrencileri_listele_gui():
         ctk.CTkButton(
             scroll_frame, text="Öğretmen İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
             command=lambda oid=ogrenci_id: assignClassToStudent.ders_ekle_ogrenci(oid, scroll_frame)
-        ).grid(row=i, column=11, padx=5, pady=5)
+        ).grid(row=i, column=12, padx=5, pady=5)
 
 
