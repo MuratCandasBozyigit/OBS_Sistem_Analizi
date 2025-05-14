@@ -9,7 +9,7 @@ cursor = conn.cursor()
 cursor.execute('''
     INSERT INTO adminler (ad_sooyad, kullanici_adi, sifre)
     VALUES (?,  ?, ?)
-''', ("murat",  "murat", "9212"))
+''', ("w",  "w", "w"))
 
 conn.commit()
 conn.close()

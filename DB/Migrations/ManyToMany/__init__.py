@@ -1,1 +1,2 @@
 from .ogretmen_ders import create_ogretmen_ders_table
+from .ogretmen_ogrenci import create_ogretmen_ogrenci_table
