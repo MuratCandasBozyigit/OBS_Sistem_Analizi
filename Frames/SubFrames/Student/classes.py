@@ -1,32 +1,47 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 from DB.Migrations.ModelBuilder.StudentCourse import ogrencinin_derslerini_getir
 
 def DersListesiSayfasi(ogrenci_id):
     # Ders verilerini al
     dersler = ogrencinin_derslerini_getir(ogrenci_id)
 
-    # Arayüz penceresi
+    # Ana pencere
     root = ctk.CTk()
     root.title("Öğrenci Ders Listesi")
-    root.geometry("400x400")
+    root.geometry("600x500")
 
-    # Frame
+    # Ana çerçeve
     frame = ctk.CTkFrame(root)
     frame.pack(padx=20, pady=20, fill="both", expand=True)
 
     # Başlık
     label = ctk.CTkLabel(frame, text=f"Öğrenci ID: {ogrenci_id} - Atanmış Dersler", font=("Arial", 16))
-    label.pack(pady=(0, 10))
+    label.pack(pady=(10, 10))
 
-    # Dersler yoksa mesaj ver
+    # Ders kutularını barındıracak iç çerçeve
+    ders_frame = ctk.CTkFrame(frame)
+    ders_frame.pack(fill="both", expand=True, padx=10, pady=10)
+
     if not dersler:
-        no_course_label = ctk.CTkLabel(frame, text="Bu öğrenciye atanmış ders yok.")
+        no_course_label = ctk.CTkLabel(ders_frame, text="Bu öğrenciye atanmış ders yok.")
         no_course_label.pack(pady=10)
     else:
-        # Dersleri listele
-        for ders_id, ders_adi in dersler:
-            ders_label = ctk.CTkLabel(frame, text=f"{ders_id} - {ders_adi}", anchor="w")
-            ders_label.pack(fill="x", padx=10, pady=5)
+        max_columns = 4  # Her satıra 4 ders
+        for index, (ders_id, ders_adi) in enumerate(dersler):
+            row = index // max_columns
+            column = index % max_columns
+
+            # Her dersi temsil eden kutu
+            ders_kutu = ctk.CTkFrame(ders_frame, border_width=1, corner_radius=10)
+            ders_kutu.grid(row=row, column=column, padx=10, pady=10, sticky="nsew")
+
+            # Ders bilgisi etiketi
+            ders_label = ctk.CTkLabel(ders_kutu, text=f"{ders_id}\n{ders_adi}", font=("Arial", 12), justify="center")
+            ders_label.pack(padx=10, pady=10)
+
+        # Grid genişlik ayarları
+        for col in range(max_columns):
+            ders_frame.grid_columnconfigure(col, weight=1)
 
     # Kapat butonu
     close_btn = ctk.CTkButton(frame, text="Kapat", command=root.destroy)
