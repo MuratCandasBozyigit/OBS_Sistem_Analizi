@@ -1,7 +1,6 @@
 import customtkinter as ctk
 import sqlite3
 import os
-
 DB_PATH = os.path.join(os.getcwd(), "okul.db")
 def studentLogin():
     from Frames.startFrame import build_gui  # ← Fonksiyonun içine taşıdık
