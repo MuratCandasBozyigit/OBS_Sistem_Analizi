@@ -7,7 +7,7 @@ def build_gui():
     # Ana pencereyi oluştur
     root = ctk.CTk()
     root.title("Murat Eğitim Bakanlığı")
-    root.geometry("300x260")
+    root.geometry("240x260")
 
     # Ana çerçeve
     frame = ctk.CTkFrame(root)
