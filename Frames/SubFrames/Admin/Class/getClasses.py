@@ -2,13 +2,15 @@ import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Class import tum_dersleri_getir, ders_sil, ders_guncelle
 from . import createClass
-from . import assignTeacherAndStudentToClass
 
 def dersleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Ders Yönetimi")
-    win.geometry("1100x600")
-
+    win.geometry("700x600")
+    win.lift()
+    win.attributes('-topmost', True)
+    win.after(200, lambda: win.attributes('-topmost', False))
+    
     title = ctk.CTkLabel(win, text="Tüm Dersler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
 
@@ -124,10 +126,10 @@ def dersleri_listele_gui():
                       command=lambda idx=i, d_id=ders_id, d_adi=ders_adi, d_saat=ders_saati:
                       guncelle_goster(idx, d_id, d_adi, d_saat)).grid(row=0, column=4, padx=(5, 10), pady=5)
 
-        ctk.CTkButton(row_frame, text="Ders İşlemleri", fg_color="#1E90FF", hover_color="#0066CC",
-                      width=90, height=28, font=("Arial", 12),
-                      command=assignTeacherAndStudentToClass.ogrenci_ders_ata_penceresi).grid(row=0, column=5, padx=(5, 10), pady=5)
+        # ctk.CTkButton(row_frame, text="Ders İşlemleri", fg_color="#1E90FF", hover_color="#0066CC",
+        #               width=90, height=28, font=("Arial", 12),
+        #               command=assignTeacherAndStudentToClass.ogrenci_ders_ata_penceresi).grid(row=0, column=5, padx=(5, 10), pady=5)
         
-        ctk.CTkButton(row_frame, text="Öğretmen İşlemleri", fg_color="#1E90FF", hover_color="#0066CC",
-                      width=90, height=28, font=("Arial", 12),
-                      command=assignTeacherAndStudentToClass.ogretmen_ders_ata_penceresi).grid(row=0, column=6, padx=(5, 10), pady=5)
+        # ctk.CTkButton(row_frame, text="Öğretmen İşlemleri", fg_color="#1E90FF", hover_color="#0066CC",
+        #               width=90, height=28, font=("Arial", 12),
+        #               command=assignTeacherAndStudentToClass.ogretmen_ders_ata_penceresi).grid(row=0, column=6, padx=(5, 10), pady=5)

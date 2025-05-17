@@ -1,4 +1,2 @@
 from .createClass import ders_ekleme_sayfasi
 from .getClasses import dersleri_listele_gui
-from .assignClassToStudent import *
-from .assignTeacherAndStudentToClass  import ogrenci_ders_ata_penceresi,ogretmen_ders_ata_penceresi

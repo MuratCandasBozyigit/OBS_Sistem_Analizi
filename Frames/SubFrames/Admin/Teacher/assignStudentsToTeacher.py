@@ -12,7 +12,9 @@ def ogrenci_ekle_ogretmen(ogretmen_id, parent=None):
     pencere = ctk.CTkToplevel()
     pencere.title("Öğrenci Ekle")
     pencere.geometry("400x500")
-    
+    pencere.lift()
+    pencere.attributes('-topmost', True)
+    pencere.after(200, lambda: pencere.attributes('-topmost', False))
     ctk.CTkLabel(pencere, text="Öğrenci Seç:", font=("Arial", 16)).pack(pady=10)
 
     try:
