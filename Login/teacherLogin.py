@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import sqlite3
 import os
+from . import session  
 DB_PATH = os.path.join(os.getcwd(), "okul.db")
 def teacherLogin():
     from Frames.startFrame import build_gui
@@ -38,10 +39,11 @@ def teacherLogin():
                 WHERE ogretmen_adı=? AND ogretmen_soyadı=? AND ogretmen_tckn=?
             ''', (ad, soyad, sifre))
             
-            admin = cursor.fetchone()
+            ogretmen = cursor.fetchone()
             conn.close()
 
-            if admin:
+            if ogretmen:
+                session.current_user_id = ogretmen[0]
                 login_status.configure(text="Giriş başarılı!", text_color="green")
                 root.after(500, lambda: [root.destroy(), open_teacher_gui()])
             else:
