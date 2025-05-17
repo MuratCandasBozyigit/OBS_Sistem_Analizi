@@ -1,7 +1,6 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 import sqlite3
 import os
-
 DB_PATH = os.path.join(os.getcwd(), "okul.db")
 
 def adminLogin():
@@ -46,6 +45,7 @@ def adminLogin():
             conn.close()
 
             if admin:
+          #      session.current_user_id = ogrenci[0] 
                 login_status.configure(text="Giriş başarılı!", text_color="green")
                 root.destroy()
                 from Frames.SubFrames.Admin.mainA import admin_gui

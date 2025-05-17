@@ -1,9 +1,12 @@
 import customtkinter as ctk
 import sqlite3
 import os
+from . import session  
+
 DB_PATH = os.path.join(os.getcwd(), "okul.db")
+
 def studentLogin():
-    from Frames.startFrame import build_gui  # ← Fonksiyonun içine taşıdık
+    from Frames.startFrame import build_gui  # Fonksiyonun içine taşıdık
 
     root = ctk.CTk()
     root.title("Öğrenci Giriş Sayfası")
@@ -15,11 +18,12 @@ def studentLogin():
     title = ctk.CTkLabel(frame, text="Öğrenci Giriş", font=("Arial", 20))
     title.pack(pady=(10, 20))
 
-    _name = ctk.CTkEntry(frame, placeholder_text="Ogrenci Adı", show="*")
+    _name = ctk.CTkEntry(frame, placeholder_text="Öğrenci Adı")
     _name.pack(pady=10)
 
-    sur_name = ctk.CTkEntry(frame, placeholder_text="Ogrenci Adı", show="*")
+    sur_name = ctk.CTkEntry(frame, placeholder_text="Öğrenci Soyadı")
     sur_name.pack(pady=10)
+
     tckn_entry = ctk.CTkEntry(frame, placeholder_text="TCKN")
     tckn_entry.pack(pady=10)
 
@@ -39,11 +43,12 @@ def studentLogin():
                 SELECT * FROM ogrenciler
                 WHERE ogrenci_adı=? AND ogrenci_soyadı=? AND ogrenci_tckn=?
             ''', (ad, soyad, sifre))
-            
-            admin = cursor.fetchone()
+
+            ogrenci = cursor.fetchone()
             conn.close()
 
-            if admin:
+            if ogrenci:
+                session.current_user_id = ogrenci[0]  # ID'nin 0. indeks olduğunu varsayıyoruz
                 login_status.configure(text="Giriş başarılı!", text_color="green")
                 root.destroy()
                 from Frames.SubFrames.Student.mainS import student_gui

@@ -1,6 +1,6 @@
 import customtkinter as ctk
+from Login import session  # sadece current_user_id lazım
 
-# importlar fonksiyon içinde olmalı (circular import'u önlemek için)
 def teacher_gui():
     from . import myClasses
     from . import myStudents
@@ -19,7 +19,7 @@ def teacher_gui():
         text="Eğitim Görevlisi Olduğum Dersler",
         width=200,
         height=50,
-        command=myClasses.Classes
+        command=lambda: myClasses.Classes(session.current_user_id)  # ← Doğru kullanım
     )
     myclasses_button.grid(row=0, column=0, pady=10)
 
@@ -28,7 +28,7 @@ def teacher_gui():
         text="Tüm Öğrenciler",
         width=200,
         height=50,
-        command=myStudents.students
+        command=lambda: myStudents.students(session.current_user_id)
     )
     allStudents_button.grid(row=1, column=0, pady=10)
 
@@ -37,7 +37,7 @@ def teacher_gui():
         text="Sınav Notları",
         width=200,
         height=50,
-        command=examScores.examScore
+        command=lambda: examScores.examScore(session.current_user_id)
     )
     examScores_button.grid(row=2, column=0, pady=10)
 
