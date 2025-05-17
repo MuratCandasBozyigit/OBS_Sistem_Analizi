@@ -5,6 +5,10 @@ def ders_ekleme_penceresi():
     win = ctk.CTkToplevel()
     win.title("Yeni Ders Ekle")
     win.geometry("400x300")
+    win.lift()
+    win.attributes('-topmost', True)
+    win.after(200, lambda: win.attributes('-topmost', False))
+    
     ders_ekleme_sayfasi(win)
 
 def ders_ekleme_sayfasi(root_frame):

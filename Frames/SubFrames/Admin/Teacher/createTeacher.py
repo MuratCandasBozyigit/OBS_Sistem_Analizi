@@ -6,7 +6,9 @@ def ogretmen_ekleme_penceresi():
     win.title("Yeni Öğretmen Ekle")
     win.geometry("400x600")
     ogretmen_ekleme_sayfasi(win)
-
+    win.lift()
+    win.attributes('-topmost', True)
+    win.after(200, lambda: win.attributes('-topmost', False))
 def ogretmen_ekleme_sayfasi(root_frame):
     for widget in root_frame.winfo_children():
         widget.destroy()

@@ -6,8 +6,8 @@ from Login.studentLogin import studentLogin
 def build_gui():
     # Ana pencereyi oluştur
     root = ctk.CTk()
-    root.title("Login Paneli")
-    root.geometry("300x270")
+    root.title("Murat Eğitim Bakanlığı")
+    root.geometry("300x260")
 
     # Ana çerçeve
     frame = ctk.CTkFrame(root)

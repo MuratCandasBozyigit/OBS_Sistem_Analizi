@@ -9,7 +9,9 @@ def ogretmenleri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğretmen Yönetimi")
     win.geometry("1300x600") 
-
+    win.lift()
+    win.attributes('-topmost', True)
+    win.after(200, lambda: win.attributes('-topmost', False))
     title = ctk.CTkLabel(win, text="Tüm Öğretmenler", font=("Arial", 22, "bold"))
     title.pack(pady=10)
 

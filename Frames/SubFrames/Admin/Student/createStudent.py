@@ -4,7 +4,11 @@ from DB.Migrations.Student.create import ogrenci_ekle  # Bu fonksiyon DB işlemi
 def ogrenci_ekleme_penceresi():
     win = ctk.CTkToplevel()
     win.title("Yeni Öğrenci Ekle")
-    win.geometry("400x600")
+    win.geometry("400x600")  
+    win.lift()
+    win.attributes('-topmost', True)
+    win.after(200, lambda: win.attributes('-topmost', False))
+    
     ogrenci_ekleme_sayfasi(win)
 
 def ogrenci_ekleme_sayfasi(root_frame):
