@@ -1,5 +1,5 @@
 import customtkinter as ctk
-
+from . import classes
 
 def yon2():
     print("Notlarım sayfasına yönlendiriliyor...")
@@ -19,7 +19,7 @@ def student_gui():
     frame.grid_columnconfigure(0, weight=1)
 
     # Butonları oluşturuyoruz
-    dersler_button = ctk.CTkButton(frame, text="Derslerim", width=200, height=50, )
+    dersler_button = ctk.CTkButton(frame, text="Derslerim", width=200, height=50,command=classes.DersListesiSayfasi )
     dersler_button.grid(row=0, column=0, pady=10)
 
     notlar_button = ctk.CTkButton(frame, text="Notlarım", width=200, height=50, command=yon2)
