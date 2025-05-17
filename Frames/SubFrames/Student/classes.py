@@ -31,15 +31,20 @@ def DersListesiSayfasi(ogrenci_id):
             row = index // max_columns
             column = index % max_columns
 
-            # Her dersi temsil eden kutu
-            ders_kutu = ctk.CTkFrame(ders_frame, border_width=1, corner_radius=10)
-            ders_kutu.grid(row=row, column=column, padx=10, pady=10, sticky="nsew")
+            # CTkButton ile hover efekti veriyoruz
+            ders_button = ctk.CTkButton(
+                ders_frame,
+                text=f"{ders_id}\n{ders_adi}",
+                font=("Arial", 12),
+                fg_color="#2a2a2a",           # normal kutu rengi
+                hover_color="#3a3a3a",        # üzerine gelince renk
+                corner_radius=10,
+                height=60,
+                width=120,
+                text_color="white"
+            )
+            ders_button.grid(row=row, column=column, padx=10, pady=10, sticky="nsew")
 
-            # Ders bilgisi etiketi
-            ders_label = ctk.CTkLabel(ders_kutu, text=f"{ders_id}\n{ders_adi}", font=("Arial", 12), justify="center")
-            ders_label.pack(padx=10, pady=10)
-
-        # Grid genişlik ayarları
         for col in range(max_columns):
             ders_frame.grid_columnconfigure(col, weight=1)
 
