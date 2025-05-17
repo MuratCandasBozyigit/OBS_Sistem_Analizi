@@ -1,4 +1,4 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 
 def admin_gui():
     from Frames.SubFrames.Admin.Class import getClasses  
