@@ -23,6 +23,7 @@ def teacherLogin():
 
     login_status = ctk.CTkLabel(frame, text="", text_color="red")
     login_status.pack(pady=5)
+
     def login_action():
         ad = _name.get().strip()
         soyad = sur_name.get().strip()
@@ -42,16 +43,19 @@ def teacherLogin():
 
             if admin:
                 login_status.configure(text="Giriş başarılı!", text_color="green")
-                root.destroy()
-                from Frames.SubFrames.Teacher.mainT import teacher_gui
-                teacher_gui()
+                root.after(500, lambda: [root.destroy(), open_teacher_gui()])
             else:
                 login_status.configure(text="Bilgiler hatalı!", text_color="red")
 
         except Exception as e:
-            login_status.configure(text=f"Hata oluştu: {e}", text_color="red")
+            try:
+                login_status.configure(text=f"Hata oluştu: {e}", text_color="red")
+            except Exception:
+                pass  # Label yoksa hata bastırılır
 
-
+    def open_teacher_gui():
+        from Frames.SubFrames.Teacher.mainT import teacher_gui
+        teacher_gui()
 
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
     login_button.pack(pady=20)
