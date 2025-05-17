@@ -37,8 +37,8 @@ def studentLogin():
             cursor = conn.cursor()
 
             cursor.execute('''
-                SELECT * FROM adminler
-                WHERE ad_sooyad=? AND kullanici_adi=? AND sifre=?
+                SELECT * FROM ogrenciler
+                WHERE ogrenci_adı=? AND ogrenci_soyadı=? AND ogrenci_tckn=?
             ''', (ad, soyad, sifre))
             
             admin = cursor.fetchone()
@@ -47,8 +47,8 @@ def studentLogin():
             if admin:
                 login_status.configure(text="Giriş başarılı!", text_color="green")
                 root.destroy()
-                from Frames.SubFrames.Admin.mainA import admin_gui
-                admin_gui()
+                from Frames.SubFrames.Student.mainS import student_gui
+                student_gui()
             else:
                 login_status.configure(text="Bilgiler hatalı!", text_color="red")
 
