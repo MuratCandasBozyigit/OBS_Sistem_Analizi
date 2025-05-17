@@ -24,7 +24,7 @@ def teacher_gui():
 
     allStudents_button = ctk.CTkButton(
         frame,
-        text="Tüm Öğrenciler",
+        text="Eğitim verdiğim öğrenciler",
         width=200,
         height=50,
         command=lambda: myStudents.students(session.current_user_id)

@@ -1,6 +1,6 @@
-﻿    from DB.connection import get_connection
+﻿from DB.connection import get_connection
 
-    def ogretmene_ders_ata(ogretmen_id, ders_id):
+def ogretmene_ders_ata(ogretmen_id, ders_id):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute('''
@@ -10,7 +10,7 @@
         conn.commit()
         conn.close()
 
-    def ogretmenin_derslerini_getir(ogretmen_id):
+def ogretmenin_derslerini_getir(ogretmen_id):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute('''
@@ -23,7 +23,7 @@
         conn.close()
         return dersler
 
-    def ogretmene_ders_sil(ogretmen_id, ders_id):
+def ogretmene_ders_sil(ogretmen_id, ders_id):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute('''
