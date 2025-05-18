@@ -1,7 +1,7 @@
 from .TeacherCourse import ogretmene_ders_ata,ogretmene_ders_sil,ogretmenin_derslerini_getir
 from .TeacherStudent import ogretmene_ogrenci_ata,ogretmenden_ogrenci_sil,ogretmenin_ogrencilerini_getir,ogretmenin_ogrencilerini_getir
 from .StudentCourse import ogrenci_ders_ata,ogrencinin_ders_sil,ogrencinin_derslerini_getir
-
+from .StudentCourse import dersi_alan_ogrencileri_getir
 
 
 #ogretmene_ait_tum_dersleri_sil
