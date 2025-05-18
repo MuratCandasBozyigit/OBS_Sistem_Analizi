@@ -2,6 +2,7 @@ import sqlite3
 import os
 
 
+
 DB_PATH = os.path.join(os.getcwd(), "okul.db")
 
 def get_connection():
@@ -17,5 +18,6 @@ def init_database():
     DB.Migrations.create_ogretmen_ders_table()
     DB.Migrations.create_ogretmen_ogrenci_table()
     DB.Migrations.create_ogrenci_ders_table()
+    DB.Migrations.create_notlar_table()
     
     

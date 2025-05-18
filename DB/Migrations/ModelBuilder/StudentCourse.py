@@ -32,3 +32,14 @@ def ogrencinin_ders_sil(ogrenci_id, ders_id):
     ''', (ogrenci_id, ders_id))
     conn.commit()
     conn.close()
+
+def dersi_alan_ogrencileri_getir(ders_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute('''
+        SELECT o.ogrenci_id, o.ogrenci_adı, o.ogrenci_soyadı
+        FROM ogrenciler o
+        JOIN ogrenci_ders od ON o.ogrenci_id = od.ogrenci_id
+        WHERE od.ders_id = ?
+    ''', (ders_id,))
+    return cursor.fetchall()
