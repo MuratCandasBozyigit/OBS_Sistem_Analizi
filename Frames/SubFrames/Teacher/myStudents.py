@@ -47,6 +47,14 @@ def students(ogretmen_id):
             yaz_parca("Ad: ", adi)
             yaz_parca("Soyad: ", soyadi)
 
+            # Öğrenci üzerine tıklama veya hoverda seçenek eklemek
+            def ogrenci_tikla(event, ogrenci_id, adi, soyadi):
+                print(f"Seçilen Öğrenci: ID: {ogrenci_id}, Ad: {adi}, Soyad: {soyadi}")
+                # Bu kısmı daha sonra not sayfasına yönlendirecek şekilde değiştiririz
+
+            # Öğrenci kartına tıklama olayı ekle
+            kart.bind("<Button-1>", lambda event, ogrenci_id=ogrenci_id, adi=adi, soyadi=soyadi: ogrenci_tikla(event, ogrenci_id, adi, soyadi))
+
         for col in range(max_columns):
             content_frame.grid_columnconfigure(col, weight=1)
 
