@@ -4,7 +4,7 @@ from Login import session  # sadece current_user_id lazım
 def teacher_gui():
     from . import myClasses
     from . import myStudents
-
+    import Frames
     root = ctk.CTk()
     root.title("Murat Eğitim Bakanlığı\nÖğretmen İşleri")
     root.geometry("400x300")
@@ -30,7 +30,9 @@ def teacher_gui():
         command=lambda: myStudents.students(session.current_user_id)
     )
     allStudents_button.grid(row=1, column=0, pady=10)
-
+    back_button = ctk.CTkButton(frame, text="Ana Sayfaya Dön", command=lambda: [root.destroy(), Frames.build_gui()],
+                                fg_color="gray")
+    back_button.grid(row=3, column=0, pady=20)
 
     def on_enter(event, btn):
         btn.configure(fg_color="darkblue")

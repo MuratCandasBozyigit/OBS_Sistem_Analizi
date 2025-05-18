@@ -3,6 +3,7 @@ from . import classes
 from Login import session  # session'dan current_user_id'yi almak için
 
 def student_gui():
+    import Frames
     root = ctk.CTk()
     root.title("Ana Sayfa")
     root.geometry("300x200")
@@ -19,7 +20,9 @@ def student_gui():
     )
     dersler_button.grid(row=0, column=0, pady=10)
 
-
+    back_button = ctk.CTkButton(frame, text="Ana Sayfaya Dön", command=lambda: [root.destroy(), Frames.build_gui()],
+                                fg_color="gray")
+    back_button.grid(row=3, column=0, pady=20)
     # Butonlara hover efektleri ekliyoruz
     for button in [dersler_button]:
         button.bind("<Enter>", lambda e, b=button: b.configure(fg_color="darkblue"))
