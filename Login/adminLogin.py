@@ -57,13 +57,13 @@ def adminLogin():
             login_status.configure(text=f"Hata oluştu: {e}", text_color="red")
 
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
-    login_button.pack(pady=20)
+    login_button.pack(pady=0)
 
     def go_back():
         root.destroy()
         build_gui()
 
     back_button = ctk.CTkButton(frame, text="Geri Dön", command=go_back, fg_color="gray")
-    back_button.pack(pady=5)
+    back_button.pack(pady=10)
 
     root.mainloop()
