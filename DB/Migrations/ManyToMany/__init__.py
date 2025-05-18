@@ -1,3 +1,4 @@
 from .ogretmen_ders import create_ogretmen_ders_table
 from .ogretmen_ogrenci import create_ogretmen_ogrenci_table
 from .ogrenci_ders import create_ogrenci_ders_table
+from .ogrenci_not  import create_notlar_table
