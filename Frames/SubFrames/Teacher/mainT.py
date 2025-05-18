@@ -1,13 +1,12 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 from Login import session  # sadece current_user_id lazım
 
 def teacher_gui():
     from . import myClasses
     from . import myStudents
-    from . import examScores
 
     root = ctk.CTk()
-    root.title("Ana Sayfa")
+    root.title("Murat Eğitim Bakanlığı\nÖğretmen İşleri")
     root.geometry("400x300")
 
     frame = ctk.CTkFrame(root)
@@ -25,21 +24,13 @@ def teacher_gui():
 
     allStudents_button = ctk.CTkButton(
         frame,
-        text="Tüm Öğrenciler",
+        text="Eğitim verdiğim öğrenciler",
         width=200,
         height=50,
         command=lambda: myStudents.students(session.current_user_id)
     )
     allStudents_button.grid(row=1, column=0, pady=10)
 
-    examScores_button = ctk.CTkButton(
-        frame,
-        text="Sınav Notları",
-        width=200,
-        height=50,
-        command=lambda: examScores.examScore(session.current_user_id)
-    )
-    examScores_button.grid(row=2, column=0, pady=10)
 
     def on_enter(event, btn):
         btn.configure(fg_color="darkblue")
@@ -47,7 +38,7 @@ def teacher_gui():
     def on_leave(event, btn):
         btn.configure(fg_color="gray")
 
-    for button in [myclasses_button, allStudents_button, examScores_button]:
+    for button in [myclasses_button, allStudents_button]:
         button.bind("<Enter>", lambda e, b=button: on_enter(e, b))
         button.bind("<Leave>", lambda e, b=button: on_leave(e, b))
 
