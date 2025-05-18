@@ -1,6 +1,5 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 from . import classes
-from . import scores
 from Login import session  # session'dan current_user_id'yi almak için
 
 def student_gui():
@@ -20,14 +19,9 @@ def student_gui():
     )
     dersler_button.grid(row=0, column=0, pady=10)
 
-    notlar_button = ctk.CTkButton(
-        frame, text="Notlarım", width=200, height=50,
-        command=lambda: scores.NotListesiSayfasi(session.current_user_id)
-    )
-    notlar_button.grid(row=1, column=0, pady=10)
 
     # Butonlara hover efektleri ekliyoruz
-    for button in [dersler_button, notlar_button]:
+    for button in [dersler_button]:
         button.bind("<Enter>", lambda e, b=button: b.configure(fg_color="darkblue"))
         button.bind("<Leave>", lambda e, b=button: b.configure(fg_color="gray"))
 
