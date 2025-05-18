@@ -1,4 +1,4 @@
-from DB.connection import get_connection
+﻿from DB.connection import get_connection
 def ogrenci_guncelle(ogrenci_id, ogrenci_adi, ogrenci_soyadi, ogrenci_fotograf, 
                      ogrenci_adres, ogrenci_tel_no, ogrenci_tckn, ogrenci_numarasi, sifre,
                      vize=None, final=None):
@@ -10,7 +10,7 @@ def ogrenci_guncelle(ogrenci_id, ogrenci_adi, ogrenci_soyadi, ogrenci_fotograf,
             UPDATE ogrenciler
             SET ogrenci_adı = ?, ogrenci_soyadı = ?, ogrenci_fotoğraf = ?, 
                 ogrenci_adres = ?, ogrenci_tel_no = ?, ogrenci_tckn = ?, 
-                ogrenci_numarası = ?, sifre = ?, ogrenci_vize = ?, ogrenci_final = ?
+                ogrenci_numarası = ?,  ogrenci_vize = ?, ogrenci_final = ?,sifre = ?
             WHERE ogrenci_id = ?
         """, (ogrenci_adi, ogrenci_soyadi, ogrenci_fotograf, ogrenci_adres, 
               ogrenci_tel_no, ogrenci_tckn, ogrenci_numarasi, sifre, vize, final, ogrenci_id))

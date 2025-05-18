@@ -28,7 +28,7 @@ def adminLogin():
     login_status.pack(pady=5)
 
     def login_action():
-        ad_sooyad = name_entry.get().strip()
+        ad_soyad = name_entry.get().strip()
         kullanici_adi = username_entry.get().strip()
         sifre = password_entry.get().strip()
 
@@ -38,8 +38,8 @@ def adminLogin():
 
             cursor.execute('''
                 SELECT * FROM adminler
-                WHERE ad_sooyad=? AND kullanici_adi=? AND sifre=?
-            ''', (ad_sooyad, kullanici_adi, sifre))
+                WHERE ad_soyad=? AND kullanici_adi=? AND sifre=?
+            ''', (ad_soyad, kullanici_adi, sifre))
             
             admin = cursor.fetchone()
             conn.close()
