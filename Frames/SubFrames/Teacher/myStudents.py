@@ -1,7 +1,7 @@
 ﻿import customtkinter as ctk
 from tkinter import messagebox
-from DB.Migrations.ModelBuilder.TeacherStudent import ogretmenin_ogrencilerini_getir
 from DB.Migrations.ModelBuilder.StudentCourse import dersi_alan_ogrencileri_getir
+from DB.Migrations.ModelBuilder.examScores import not_ekle_veya_guncelle, notlari_getir
 
 def students(ders_id):
     root = ctk.CTk()
@@ -32,31 +32,61 @@ def students(ders_id):
 
         def not_sayfasini_ac(ogrenci_id, adi, soyadi):
             pencere = ctk.CTkToplevel(root)
-            pencere.title("Not Sayfası")
-            pencere.geometry("400x400")
+            pencere.title("Not Girme Sayfası")
+            pencere.geometry("400x300")
             pencere.lift()
             pencere.attributes('-topmost', True)
             pencere.after(200, lambda: pencere.attributes('-topmost', False))
-            ctk.CTkLabel(pencere, text=f"Öğrenci ID: {ogrenci_id}", font=ctk.CTkFont("Arial", 12, "bold")).pack(pady=(10, 5))
-            ctk.CTkLabel(pencere, text=f"Adı: {adi}", font=ctk.CTkFont("Arial", 12)).pack(pady=2)
-            ctk.CTkLabel(pencere, text=f"Soyadı: {soyadi}", font=ctk.CTkFont("Arial", 12)).pack(pady=(2, 10))
 
-            entries = {}
-            for etiket in ["Vize 1", "Final"]:
-                girdi_frame = ctk.CTkFrame(pencere, fg_color="transparent")
-                girdi_frame.pack(pady=5, padx=20, fill="x")
-                ctk.CTkLabel(girdi_frame, text=etiket, width=100, anchor="w").pack(side="left")
-                entry = ctk.CTkEntry(girdi_frame, width=200)
-                entry.pack(side="right", padx=10)
-                entries[etiket] = entry
+            # Başlık
+            baslik = ctk.CTkLabel(
+                pencere, 
+                text=f"{adi} {soyadi} (ID: {ogrenci_id})", 
+                font=ctk.CTkFont("Arial", 14, "bold")
+            )
+            baslik.pack(pady=15)
 
-            def kaydet():
-                print(f"Kaydedilen Notlar: Öğrenci ID {ogrenci_id}, Ders ID {ders_id}")
-                for etiket, entry in entries.items():
-                    print(f"{etiket}: {entry.get()}")
-                # Burada veritabanına not eklenebilir
+            # Ana frame
+            main_frame = ctk.CTkFrame(pencere)
+            main_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-            ctk.CTkButton(pencere, text="Kaydet", command=kaydet).pack(pady=20)
+            # Vize notu
+            vize_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
+            vize_frame.pack(pady=5, fill="x")
+            ctk.CTkLabel(vize_frame, text="Vize Notu:").pack(side="left")
+            vize_entry = ctk.CTkEntry(vize_frame)
+            vize_entry.pack(side="right", padx=10)
+
+            # Final notu
+            final_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
+            final_frame.pack(pady=5, fill="x")
+            ctk.CTkLabel(final_frame, text="Final Notu:").pack(side="left")
+            final_entry = ctk.CTkEntry(final_frame)
+            final_entry.pack(side="right", padx=10)
+
+            # Kaydet butonu
+            kaydet_btn = ctk.CTkButton(
+                main_frame, 
+                text="Kaydet", 
+                command=lambda: kaydet(vize_entry, final_entry, ogrenci_id, ders_id, pencere)
+            )
+            kaydet_btn.pack(pady=20)
+
+            # Mevcut notları yükle
+            mevcut_notlar = notlari_getir(ogrenci_id, ders_id)
+            if mevcut_notlar:
+                vize_entry.insert(0, str(mevcut_notlar[0] or ""))
+                final_entry.insert(0, str(mevcut_notlar[1] or ""))
+
+        def kaydet(vize_entry, final_entry, ogrenci_id, ders_id, pencere):
+            try:
+                vize = float(vize_entry.get()) if vize_entry.get() else None
+                final = float(final_entry.get()) if final_entry.get() else None
+                not_ekle_veya_guncelle(ogrenci_id, ders_id, vize, final)
+                messagebox.showinfo("Başarılı", "Notlar kaydedildi!")
+                pencere.destroy()
+            except ValueError:
+                messagebox.showerror("Hata", "Lütfen geçerli sayılar girin!")
 
         for index, (ogrenci_id, adi, soyadi) in enumerate(ogrenciler):
             row = index // max_columns
