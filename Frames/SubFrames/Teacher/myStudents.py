@@ -28,14 +28,33 @@ def students(ogretmen_id):
         label.pack(pady=10)
     else:
         max_columns = 3
+
+        popup = None  # popup referansı dışarıda tutulsun
+
+        def show_popup(event, x, y, ogrenci_id, adi, soyadi):
+            nonlocal popup
+            if popup:
+                popup.destroy()
+
+            popup = ctk.CTkFrame(content_frame, fg_color="#333", corner_radius=8)
+            popup.place(x=x, y=y)
+
+            popup_label = ctk.CTkLabel(popup, text="Seçenekler", font=("Arial", 12, "bold"))
+            popup_label.pack(padx=10, pady=(5, 0))
+
+            def not_sayfasina_git():
+                print(f"NOT SAYFASI => ID: {ogrenci_id}, Ad: {adi}, Soyad: {soyadi}")
+                popup.destroy()
+
+            ctk.CTkButton(popup, text="Not Sayfası", command=not_sayfasina_git, height=28).pack(padx=10, pady=8)
+
         for index, (ogrenci_id, adi, soyadi) in enumerate(ogrenciler):
             row = index // max_columns
             column = index % max_columns
 
             kart = ctk.CTkFrame(content_frame, fg_color="#2a2a2a", corner_radius=8)
-            kart.grid(row=row, column=column, padx=8, pady=8, sticky="w")
+            kart.grid(row=row, column=column, padx=8, pady=8, sticky="n")
 
-            # Tek satır - yan yana kırmızı etiketler ve beyaz veriler
             satir = ctk.CTkFrame(kart, fg_color="transparent")
             satir.pack(padx=8, pady=5)
 
@@ -47,13 +66,14 @@ def students(ogretmen_id):
             yaz_parca("Ad: ", adi)
             yaz_parca("Soyad: ", soyadi)
 
-            # Öğrenci üzerine tıklama veya hoverda seçenek eklemek
-            def ogrenci_tikla(event, ogrenci_id, adi, soyadi):
-                print(f"Seçilen Öğrenci: ID: {ogrenci_id}, Ad: {adi}, Soyad: {soyadi}")
-                # Bu kısmı daha sonra not sayfasına yönlendirecek şekilde değiştiririz
+            # Hem tıklama hem hover için event ekle
+            def bind_popup(widget, ogrenci_id, adi, soyadi):
+                def handler(event):
+                    show_popup(event, event.x_root - root.winfo_rootx(), event.y_root - root.winfo_rooty(), ogrenci_id, adi, soyadi)
+                widget.bind("<Button-1>", handler)
+                widget.bind("<Enter>", handler)
 
-            # Öğrenci kartına tıklama olayı ekle
-            kart.bind("<Button-1>", lambda event, ogrenci_id=ogrenci_id, adi=adi, soyadi=soyadi: ogrenci_tikla(event, ogrenci_id, adi, soyadi))
+            bind_popup(kart, ogrenci_id, adi, soyadi)
 
         for col in range(max_columns):
             content_frame.grid_columnconfigure(col, weight=1)
