@@ -7,7 +7,7 @@ def teacher_gui():
     import Frames
     root = ctk.CTk()
     root.title("Murat Eğitim Bakanlığı\nÖğretmen İşleri")
-    root.geometry("400x300")
+    root.geometry("400x170")
 
     frame = ctk.CTkFrame(root)
     frame.pack(fill="both", expand=True, padx=20, pady=20)
@@ -22,14 +22,7 @@ def teacher_gui():
     )
     myclasses_button.grid(row=0, column=0, pady=10)
 
-    allStudents_button = ctk.CTkButton(
-        frame,
-        text="Eğitim verdiğim öğrenciler",
-        width=200,
-        height=50,
-        command=lambda: myStudents.students(session.current_user_id)
-    )
-    allStudents_button.grid(row=1, column=0, pady=10)
+  
     back_button = ctk.CTkButton(frame, text="Ana Sayfaya Dön", command=lambda: [root.destroy(), Frames.build_gui()],
                                 fg_color="gray")
     back_button.grid(row=3, column=0, pady=20)
@@ -40,7 +33,7 @@ def teacher_gui():
     def on_leave(event, btn):
         btn.configure(fg_color="gray")
 
-    for button in [myclasses_button, allStudents_button]:
+    for button in [myclasses_button]:
         button.bind("<Enter>", lambda e, b=button: on_enter(e, b))
         button.bind("<Leave>", lambda e, b=button: on_leave(e, b))
 

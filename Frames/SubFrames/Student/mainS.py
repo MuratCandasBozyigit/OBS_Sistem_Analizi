@@ -6,7 +6,7 @@ def student_gui():
     import Frames
     root = ctk.CTk()
     root.title("Ana Sayfa")
-    root.geometry("300x200")
+    root.geometry("300x170")
 
     # Ana frame
     frame = ctk.CTkFrame(root)
