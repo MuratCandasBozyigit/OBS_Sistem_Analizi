@@ -78,7 +78,7 @@ def ogretmen_ekleme_sayfasi(root_frame):
         if not adres: adres_entry.configure(border_color="red"); valid = False
 
         # Telefon: +90 ile başlamalı ve 13 haneli olmalı
-        if not tel.startswith("+90") or len(tel) != 13 or not tel[3:].isdigit():
+        if not tel.startswith("0") or len(tel) != 11 or not tel[3:].isdigit():
             tel_entry.configure(border_color="red")
             valid = False
 
