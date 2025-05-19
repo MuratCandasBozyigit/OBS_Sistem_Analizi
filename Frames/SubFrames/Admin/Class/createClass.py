@@ -1,4 +1,4 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 from DB.Migrations.Class.create import ders_ekle
 from DB.Migrations.Class.update import ders_guncelle
 

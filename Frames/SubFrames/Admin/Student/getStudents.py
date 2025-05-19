@@ -82,7 +82,7 @@ def ogrencileri_listele_gui():
                 messagebox.showerror("Hata", f"Güncelleme hatası:\n{e}")
 
         ctk.CTkButton(form, text="Kaydet", command=kaydet, fg_color="#FFA500", hover_color="#FF8C00").grid(row=5, column=3, padx=10)
-        ctk.CTkButton(form, text="İptal", command=lambda: form.destroy(), fg_color="gray", hover_color="darkgray").grid(row=5, column=4, padx=10)
+        ctk.CTkButton(form, text="İptal", command=lambda: form.destroy(), fg_color="gray", hover_color="darkgray").grid(row=6, column=3, padx=10)
 
         guncelle_form["frame"] = form
 
