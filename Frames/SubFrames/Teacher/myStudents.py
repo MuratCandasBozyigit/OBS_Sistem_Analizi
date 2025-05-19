@@ -38,7 +38,6 @@ def students(ders_id):
             pencere.attributes('-topmost', True)
             pencere.after(200, lambda: pencere.attributes('-topmost', False))
 
-            # Başlık
             baslik = ctk.CTkLabel(
                 pencere, 
                 text=f"{adi} {soyadi} (ID: {ogrenci_id})", 
@@ -46,25 +45,21 @@ def students(ders_id):
             )
             baslik.pack(pady=15)
 
-            # Ana frame
             main_frame = ctk.CTkFrame(pencere)
             main_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-            # Vize notu
             vize_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
             vize_frame.pack(pady=5, fill="x")
             ctk.CTkLabel(vize_frame, text="Vize Notu:").pack(side="left")
             vize_entry = ctk.CTkEntry(vize_frame)
             vize_entry.pack(side="right", padx=10)
 
-            # Final notu
             final_frame = ctk.CTkFrame(main_frame, fg_color="transparent")
             final_frame.pack(pady=5, fill="x")
             ctk.CTkLabel(final_frame, text="Final Notu:").pack(side="left")
             final_entry = ctk.CTkEntry(final_frame)
             final_entry.pack(side="right", padx=10)
 
-            # Kaydet butonu
             kaydet_btn = ctk.CTkButton(
                 main_frame, 
                 text="Kaydet", 
@@ -72,21 +67,40 @@ def students(ders_id):
             )
             kaydet_btn.pack(pady=20)
 
-            # Mevcut notları yükle
             mevcut_notlar = notlari_getir(ogrenci_id, ders_id)
             if mevcut_notlar:
                 vize_entry.insert(0, str(mevcut_notlar[0] or ""))
                 final_entry.insert(0, str(mevcut_notlar[1] or ""))
+            else:
+                vize_entry.insert(0, "0")
+                final_entry.insert(0, "0")
 
         def kaydet(vize_entry, final_entry, ogrenci_id, ders_id, pencere):
             try:
-                vize = float(vize_entry.get()) if vize_entry.get() else None
-                final = float(final_entry.get()) if final_entry.get() else None
+                vize = vize_entry.get()
+                final = final_entry.get()
+
+                if not vize or not final:
+                    messagebox.showerror("Hata", "Vize ve Final notları boş olamaz!")
+                    return
+
+                vize = float(vize) if vize.replace('.', '', 1).isdigit() else None
+                final = float(final) if final.replace('.', '', 1).isdigit() else None
+                
+                if vize is None or final is None:
+                    messagebox.showerror("Hata", "Lütfen geçerli sayılar girin!")
+                    return
+
+                if not (0 <= vize <= 100) or not (0 <= final <= 100):
+                    messagebox.showerror("Hata", "Notlar 0 ile 100 arasında olmalıdır!")
+                    return
+
                 not_ekle_veya_guncelle(ogrenci_id, ders_id, vize, final)
                 messagebox.showinfo("Başarılı", "Notlar kaydedildi!")
                 pencere.destroy()
-            except ValueError:
-                messagebox.showerror("Hata", "Lütfen geçerli sayılar girin!")
+
+            except Exception as e:
+                messagebox.showerror("Hata", f"Bir hata oluştu: {e}")
 
         for index, (ogrenci_id, adi, soyadi) in enumerate(ogrenciler):
             row = index // max_columns
