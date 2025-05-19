@@ -28,11 +28,6 @@ def ogrenci_ekleme_sayfasi(root_frame):
     ogrenci_soyadi_entry = ctk.CTkEntry(root_frame)
     ogrenci_soyadi_entry.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 
-    ogrenci_adres_label = ctk.CTkLabel(root_frame, text="Öğrenci Adresi:")
-    ogrenci_adres_label.grid(row=3, column=0, padx=10, pady=10, sticky="e")
-    ogrenci_adres_entry = ctk.CTkEntry(root_frame)
-    ogrenci_adres_entry.grid(row=3, column=1, padx=10, pady=10, sticky="w")
-
     ogrenci_tel_label = ctk.CTkLabel(root_frame, text="Öğrenci Telefon No:")
     ogrenci_tel_label.grid(row=4, column=0, padx=10, pady=10, sticky="e")
     ogrenci_tel_entry = ctk.CTkEntry(root_frame)
@@ -51,7 +46,6 @@ def ogrenci_ekleme_sayfasi(root_frame):
     def kaydet():
         ogrenci_adi = ogrenci_adi_entry.get().strip()
         ogrenci_soyadi = ogrenci_soyadi_entry.get().strip()
-        ogrenci_adres = ogrenci_adres_entry.get().strip()
         ogrenci_tel = ogrenci_tel_entry.get().strip()
         ogrenci_tckn = ogrenci_tckn_entry.get().strip()
         ogrenci_numara = ogrenci_numara_entry.get().strip()
@@ -60,7 +54,7 @@ def ogrenci_ekleme_sayfasi(root_frame):
             widget.destroy()
 
         # Validasyon
-        if not all([ogrenci_adi, ogrenci_soyadi, ogrenci_adres, ogrenci_tel, ogrenci_tckn, ogrenci_numara]):
+        if not all([ogrenci_adi, ogrenci_soyadi, ogrenci_tel, ogrenci_tckn, ogrenci_numara]):
             mesaj = ctk.CTkLabel(root_frame, text="Lütfen tüm alanları doldurun!", text_color="red")
         elif not (ogrenci_tckn.isdigit() and len(ogrenci_tckn) == 11):
             mesaj = ctk.CTkLabel(root_frame, text="TCKN 11 haneli sayısal olmalıdır!", text_color="red")
@@ -69,11 +63,10 @@ def ogrenci_ekleme_sayfasi(root_frame):
         elif not ogrenci_numara.isdigit():
             mesaj = ctk.CTkLabel(root_frame, text="Öğrenci numarası sayısal olmalıdır!", text_color="red")
         else:
-            ogrenci_ekle(ogrenci_adi, ogrenci_soyadi, "", ogrenci_adres, ogrenci_tel, ogrenci_tckn, ogrenci_numara, "")  # Fotoğraf ve şifre boş bırakıldı
+            ogrenci_ekle(ogrenci_adi, ogrenci_soyadi, ogrenci_tel, ogrenci_tckn, ogrenci_numara)  # Fotoğraf ve şifre boş bırakıldı
             mesaj = ctk.CTkLabel(root_frame, text="Öğrenci başarıyla eklendi!", text_color="green")
             ogrenci_adi_entry.delete(0, 'end')
             ogrenci_soyadi_entry.delete(0, 'end')
-            ogrenci_adres_entry.delete(0, 'end')
             ogrenci_tel_entry.delete(0, 'end')
             ogrenci_tckn_entry.delete(0, 'end')
             ogrenci_numara_entry.delete(0, 'end')
