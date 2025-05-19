@@ -1,4 +1,4 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Teacher import tum_ogretmenleri_getir, ogretmen_sil, ogretmen_guncelle
 from . import createTeacher  # Öğretmen ekleme penceresini buradan çağırıyoruz
@@ -38,7 +38,7 @@ def ogretmenleri_listele_gui():
     scroll_frame = ctk.CTkScrollableFrame(win, width=1150, height=460)
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Branş", "Fotoğraf", "Adres", "Şifre", "   Güncelle","   Sil", "  Ders","  Öğrenci Ekle"]
+    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Branş", "Adres", "   Güncelle","   Sil", "  Ders","  Öğrenci Ekle"]
     for col, header in enumerate(headers):
         ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 15, "bold")).grid(
             row=0, column=col, padx=15, pady=5, sticky="w"
@@ -64,7 +64,7 @@ def ogretmenleri_listele_gui():
             except Exception as e:
                 messagebox.showerror("Hata", f"Silinemedi!\n{e}")
 
-    def guncelle_goster(row_idx, ogretmen_id, mevcut_ad, mevcut_soyad, mevcut_tel, mevcut_tckn, mevcut_brans, mevcut_foto, mevcut_adres, mevcut_sifre):
+    def guncelle_goster(row_idx, ogretmen_id, mevcut_ad, mevcut_soyad, mevcut_tel, mevcut_tckn, mevcut_brans, mevcut_adres):
         if guncelle_form["frame"]:
             guncelle_form["frame"].destroy()
 
@@ -87,9 +87,7 @@ def ogretmenleri_listele_gui():
         entry_tel = add_label_entry(1, 1, "Telefon No:", mevcut_tel)
         entry_tckn = add_label_entry(1, 3, "TCKN:", mevcut_tckn)
         entry_brans = add_label_entry(2, 1, "Branş:", mevcut_brans)
-        entry_foto = add_label_entry(2, 3, "Fotoğraf URL:", mevcut_foto)
         entry_adres = add_label_entry(3, 1, "Adres:", mevcut_adres)
-        entry_sifre = add_label_entry(3, 3, "Şifre:", mevcut_sifre, show="*")
 
         def kaydet():
             yeni_ad = entry_ad.get().strip()
@@ -97,16 +95,14 @@ def ogretmenleri_listele_gui():
             yeni_tel = entry_tel.get().strip()
             yeni_tckn = entry_tckn.get().strip()
             yeni_brans = entry_brans.get().strip()
-            yeni_foto = entry_foto.get().strip()
             yeni_adres = entry_adres.get().strip()
-            yeni_sifre = entry_sifre.get().strip()
 
-            if not all([yeni_ad, yeni_soyad, yeni_tel, yeni_tckn, yeni_brans, yeni_foto, yeni_adres, yeni_sifre]):
+            if not all([yeni_ad, yeni_soyad, yeni_tel, yeni_tckn, yeni_brans, yeni_adres]):
                 messagebox.showerror("Hata", "Alanlar boş bırakılamaz.")
                 return
 
             try:
-                ogretmen_guncelle(ogretmen_id, yeni_ad, yeni_soyad, yeni_foto, yeni_adres, yeni_tel, yeni_tckn, yeni_brans, yeni_sifre)
+                ogretmen_guncelle(ogretmen_id, yeni_ad, yeni_soyad, yeni_adres, yeni_tel, yeni_tckn, yeni_brans)
                 messagebox.showinfo("Başarılı", "Öğretmen güncellendi.")
                 refresh()
             except Exception as e:
@@ -118,17 +114,17 @@ def ogretmenleri_listele_gui():
         guncelle_form["frame"] = form
 
     for i, ogretmen in enumerate(ogretmenler, start=1):
-        ogretmen_id, ad, soyad, foto, adres, tel, tckn, brans, sifre = ogretmen
+        ogretmen_id, ad, soyad, adres, tel, tckn, brans = ogretmen
 
-        for idx, val in enumerate([ogretmen_id, ad, soyad, tel, tckn, brans, foto, adres, sifre]):
+        for idx, val in enumerate([ogretmen_id, ad, soyad, tel, tckn, brans, adres]):
             ctk.CTkLabel(scroll_frame, text=str(val), font=("Arial", 12)).grid(
                 row=i, column=idx, padx=5, pady=5, sticky="w"
             )
 
         ctk.CTkButton(
             scroll_frame, text="Güncelle", font=("Arial", 12), fg_color="#FFA500", hover_color="#FF8C00",
-            command=lambda row=i, oid=ogretmen_id, a=ad, s=soyad, t=tel, tc=tckn, b=brans, f=foto, adr=adres, sif=sifre:
-            guncelle_goster(row, oid, a, s, t, tc, b, f, adr, sif)
+            command=lambda row=i, oid=ogretmen_id, a=ad, s=soyad, t=tel, tc=tckn, b=brans, adr=adres:
+            guncelle_goster(row, oid, a, s, t, tc, b, adr)
         ).grid(row=i, column=9, padx=5, pady=5)
 
         ctk.CTkButton(

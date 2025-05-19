@@ -1,4 +1,4 @@
-import customtkinter as ctk
+﻿import customtkinter as ctk
 from DB.Migrations.Teacher.create import ogretmen_ekle
 
 def ogretmen_ekleme_penceresi():
@@ -27,10 +27,7 @@ def ogretmen_ekleme_sayfasi(root_frame):
     soyad_entry = ctk.CTkEntry(root_frame)
     soyad_entry.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 
-    foto_label = ctk.CTkLabel(root_frame, text="Fotoğraf (URL):")
-    foto_label.grid(row=3, column=0, padx=10, pady=10, sticky="e")
-    foto_entry = ctk.CTkEntry(root_frame)
-    foto_entry.grid(row=3, column=1, padx=10, pady=10, sticky="w")
+
 
     adres_label = ctk.CTkLabel(root_frame, text="Adres:")
     adres_label.grid(row=4, column=0, padx=10, pady=10, sticky="e")
@@ -52,31 +49,24 @@ def ogretmen_ekleme_sayfasi(root_frame):
     numara_entry = ctk.CTkEntry(root_frame)
     numara_entry.grid(row=7, column=1, padx=10, pady=10, sticky="w")
 
-    sifre_label = ctk.CTkLabel(root_frame, text="Şifre:")
-    sifre_label.grid(row=8, column=0, padx=10, pady=10, sticky="e")
-    sifre_entry = ctk.CTkEntry(root_frame, show="*")
-    sifre_entry.grid(row=8, column=1, padx=10, pady=10, sticky="w")
+
 
     def reset_entry_styles():
         ad_entry.configure(border_color="gray")
         soyad_entry.configure(border_color="gray")
-        foto_entry.configure(border_color="gray")
         adres_entry.configure(border_color="gray")
         tel_entry.configure(border_color="gray")
         tckn_entry.configure(border_color="gray")
         numara_entry.configure(border_color="gray")
-        sifre_entry.configure(border_color="gray")
 
     def kaydet():
         reset_entry_styles()
         ad = ad_entry.get()
         soyad = soyad_entry.get()
-        foto = foto_entry.get()
         adres = adres_entry.get()
         tel = tel_entry.get()
         tckn = tckn_entry.get()
         numara = numara_entry.get()
-        sifre = sifre_entry.get()
 
         for widget in root_frame.grid_slaves(row=9):
             widget.destroy()
@@ -85,9 +75,7 @@ def ogretmen_ekleme_sayfasi(root_frame):
 
         if not ad: ad_entry.configure(border_color="red"); valid = False
         if not soyad: soyad_entry.configure(border_color="red"); valid = False
-        if not foto: foto_entry.configure(border_color="red"); valid = False
         if not adres: adres_entry.configure(border_color="red"); valid = False
-        if not sifre: sifre_entry.configure(border_color="red"); valid = False
 
         # Telefon: +90 ile başlamalı ve 13 haneli olmalı
         if not tel.startswith("+90") or len(tel) != 13 or not tel[3:].isdigit():
@@ -105,17 +93,15 @@ def ogretmen_ekleme_sayfasi(root_frame):
             valid = False
 
         if valid:
-            ogretmen_ekle(ad, soyad, foto, adres, int(tel[3:]), int(tckn), int(numara), sifre)
+            ogretmen_ekle(ad, soyad,  adres, int(tel[3:]), int(tckn), int(numara))
             mesaj = ctk.CTkLabel(root_frame, text="Öğretmen başarıyla eklendi!", text_color="green")
 
             ad_entry.delete(0, 'end')
             soyad_entry.delete(0, 'end')
-            foto_entry.delete(0, 'end')
             adres_entry.delete(0, 'end')
             tel_entry.delete(0, 'end')
             tckn_entry.delete(0, 'end')
             numara_entry.delete(0, 'end')
-            sifre_entry.delete(0, 'end')
         else:
             mesaj = ctk.CTkLabel(root_frame, text="Lütfen geçerli bilgileri girin!", text_color="red")
 
