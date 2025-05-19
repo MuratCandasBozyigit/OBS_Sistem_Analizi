@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from DB.Migrations.Teacher.create import ogretmen_ekle  # Bu senin ogretmen ekleme fonksiyonun
+from DB.connection import get_connection
 
 def ogretmen_ekleme_penceresi():
     win = ctk.CTkToplevel()
@@ -9,6 +10,7 @@ def ogretmen_ekleme_penceresi():
     win.lift()
     win.attributes('-topmost', True)
     win.after(200, lambda: win.attributes('-topmost', False))
+
 def ogretmen_ekleme_sayfasi(root_frame):
     for widget in root_frame.winfo_children():
         widget.destroy()
@@ -83,6 +85,16 @@ def ogretmen_ekleme_sayfasi(root_frame):
         tckn = tckn_entry.get()
         numara = numara_entry.get()
         sifre = sifre_entry.get()
+
+        # Öğretmen numarası ve telefon, tckn'yi integer olarak alıyoruz
+        try:
+            tel = int(tel)
+            tckn = int(tckn)
+            numara = int(numara)
+        except ValueError:
+            mesaj = ctk.CTkLabel(root_frame, text="Telefon, TCKN ve Öğretmen No sadece sayılar olmalı!", text_color="red")
+            mesaj.grid(row=9, column=0, columnspan=2, pady=10)
+            return
 
         # Önceki mesajları temizle
         for widget in root_frame.grid_slaves(row=9):
