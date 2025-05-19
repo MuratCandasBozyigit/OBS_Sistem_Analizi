@@ -23,7 +23,7 @@ Uygulama açıldığında 3 adet buton görünür:
 - 👨‍💼 **Admin**
 - 👨‍🏫 **Öğretmen**
 - 👨‍🎓 **Öğrenci**
-
+-ŞİFRELER ÖĞRENCİ VE ÖĞRETMEN İÇİN TCKN NUMARASIDIR.
 Her biri kendi login ekranına yönlendirir.
 
 📋 Admin Giriş Bilgileri

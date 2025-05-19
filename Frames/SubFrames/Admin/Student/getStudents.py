@@ -6,7 +6,7 @@ from . import createStudent, assignClassToStudent, assignTeacherToStudent
 def ogrencileri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğrenci Yönetimi")
-    win.geometry("1450x650")
+    win.geometry("1150x650")
     win.lift()
     win.attributes("-topmost", True)
     win.after(200, lambda: win.attributes("-topmost", False))
@@ -29,8 +29,7 @@ def ogrencileri_listele_gui():
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
     headers = [
-        "ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara",
-        "Fotoğraf", "Adres", "Şifre",
+        "ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara", 
         "Güncelle", "Sil", "Ders İşlemleri", "Öğretmen İşlemleri"
     ]
     for col, header in enumerate(headers):
@@ -60,11 +59,11 @@ def ogrencileri_listele_gui():
         form = ctk.CTkFrame(scroll_frame, fg_color="#F0F0F0")
         form.grid(row=row+1, column=0, columnspan=15, pady=10, padx=10, sticky="ew")
 
-        labels = ["Adı", "Soyadı", "Telefon", "TCKN", "Numara", "Fotoğraf", "Adres", "Şifre"]
+        labels = ["Adı", "Soyadı", "Telefon", "TCKN", "Numara"]
         entries = []
         for idx, (label, value) in enumerate(zip(labels, mevcut)):
             ctk.CTkLabel(form, text=label + ":", font=("Arial", 13)).grid(row=idx//2, column=(idx%2)*2, padx=5, pady=5, sticky="w")
-            ent = ctk.CTkEntry(form, width=200, show="*" if label == "Şifre" else None)
+            ent = ctk.CTkEntry(form, width=200)
             ent.insert(0, str(value) if value is not None else "")
             ent.grid(row=idx//2, column=(idx%2)*2 + 1, padx=5, pady=5)
             entries.append(ent)
@@ -88,24 +87,25 @@ def ogrencileri_listele_gui():
 
     # Öğrenci satırlarını oluştur
     for i, ogr in enumerate(ogrenciler, start=1):
-        ogr_id, ad, soyad, foto, adres, tel, tckn, numara, sifre ,vize,final = ogr
+        ogr_id, ad, soyad, tel, tckn, numara, vize, final = ogr
 
-        row_data = [ogr_id, ad, soyad, tel, tckn, numara, foto, adres, sifre]
+        row_data = [ogr_id, ad, soyad, tel, tckn, numara]
         for j, val in enumerate(row_data):
             ctk.CTkLabel(scroll_frame, text=str(val), font=("Arial", 12)).grid(row=i, column=j, padx=5, pady=5, sticky="w")
 
+        # Fiyatları düzenle
         ctk.CTkButton(scroll_frame, text="Güncelle", font=("Arial", 12), fg_color="#FFA500", hover_color="#FF8C00",
-                      command=lambda i=i, oid=ogr_id: guncelle_goster(i, oid, ad, soyad, tel, tckn, numara, foto, adres, sifre)
-                      ).grid(row=i, column=9, padx=5, pady=5)
+                      command=lambda i=i, oid=ogr_id: guncelle_goster(i, oid, ad, soyad, tel, tckn, numara)
+                      ).grid(row=i, column=6, padx=5, pady=5)
 
         ctk.CTkButton(scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
                       command=lambda oid=ogr_id: sil_ogrenci(oid)
-                      ).grid(row=i, column=10, padx=5, pady=5)
+                      ).grid(row=i, column=7, padx=5, pady=5)
 
         ctk.CTkButton(scroll_frame, text="Ders İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
                       command=lambda oid=ogr_id: assignClassToStudent.ders_ekle_ogrenci(oid, scroll_frame)
-                      ).grid(row=i, column=11, padx=5, pady=5)
+                      ).grid(row=i, column=8, padx=5, pady=5)
 
         ctk.CTkButton(scroll_frame, text="Öğretmen İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
                       command=lambda oid=ogr_id: assignTeacherToStudent.ogretmen_ekle_ogrenci(oid, scroll_frame)
-                      ).grid(row=i, column=12, padx=5, pady=5)
+                      ).grid(row=i, column=9, padx=5, pady=5)
