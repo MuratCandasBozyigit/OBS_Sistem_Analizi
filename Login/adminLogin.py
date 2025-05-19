@@ -28,7 +28,7 @@ def adminLogin():
     login_status.pack(pady=5)
 
     def login_action():
-        ad_sooyad = name_entry.get().strip()
+        ad_soyad = name_entry.get().strip()
         kullanici_adi = username_entry.get().strip()
         sifre = password_entry.get().strip()
 
@@ -38,8 +38,8 @@ def adminLogin():
 
             cursor.execute('''
                 SELECT * FROM adminler
-                WHERE ad_sooyad=? AND kullanici_adi=? AND sifre=?
-            ''', (ad_sooyad, kullanici_adi, sifre))
+                WHERE ad_soyad=? AND kullanici_adi=? AND sifre=?
+            ''', (ad_soyad, kullanici_adi, sifre))
             
             admin = cursor.fetchone()
             conn.close()
@@ -57,13 +57,13 @@ def adminLogin():
             login_status.configure(text=f"Hata oluştu: {e}", text_color="red")
 
     login_button = ctk.CTkButton(frame, text="Giriş Yap", command=login_action)
-    login_button.pack(pady=20)
+    login_button.pack(pady=0)
 
     def go_back():
         root.destroy()
         build_gui()
 
     back_button = ctk.CTkButton(frame, text="Geri Dön", command=go_back, fg_color="gray")
-    back_button.pack(pady=5)
+    back_button.pack(pady=10)
 
     root.mainloop()
