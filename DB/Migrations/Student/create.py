@@ -12,8 +12,8 @@ def create_ogrenciler_table():
             ogrenci_fotoğraf TEXT,
             ogrenci_adres TEXT,
             ogrenci_tel_no TEXT,
-            ogrenci_tckn TEXT NOT NULL,
-            ogrenci_numarası TEXT NOT NULL,
+            ogrenci_tckn INTEGER NOT NULL,
+            ogrenci_numarası INTEGER NOT NULL,
             sifre TEXT NOT NULL,
             ogrenci_vize REAL,
             ogrenci_final REAL

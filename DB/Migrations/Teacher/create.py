@@ -10,9 +10,9 @@ def create_ogretmenler_table():
             ogretmen_soyadı TEXT NOT NULL,
             ogretmen_fotoğraf TEXT,
             ogretmen_adres TEXT,
-            ogretmen_tel_no TEXT,
-            ogretmen_tckn TEXT NOT NULL,
-            ogretmen_numarası TEXT NOT NULL,
+            ogretmen_tel_no INTEGER,
+            ogretmen_tckn INTEGER NOT NULL,
+            ogretmen_numarası INTEGER NOT NULL,
             şifre TEXT NOT NULL
         )
     ''')

@@ -7,7 +7,7 @@ def create_dersler_table():
         CREATE TABLE IF NOT EXISTS dersler (
             ders_id INTEGER PRIMARY KEY AUTOINCREMENT,
             ders_adı TEXT NOT NULL,
-            ders_saati TEXT NOT NULL
+            ders_saati INTEGER NOT NULL
         )
     ''')
     conn.commit()
