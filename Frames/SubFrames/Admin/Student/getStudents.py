@@ -6,7 +6,7 @@ from . import createStudent, assignClassToStudent, assignTeacherToStudent
 def ogrencileri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğrenci Yönetimi")
-    win.geometry("1450x650")
+    win.geometry("1150x650")
     win.lift()
     win.attributes("-topmost", True)
     win.after(200, lambda: win.attributes("-topmost", False))
