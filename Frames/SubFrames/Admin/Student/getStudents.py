@@ -79,7 +79,8 @@ def ogrencileri_listele_gui():
             ctk.CTkLabel(form, text=text, font=("Arial", 13)).grid(row=row, column=col, padx=5, pady=5, sticky="w")
             entry = ctk.CTkEntry(form, width=200, show=show)
             entry.insert(0, mevcut)
-            entry.grid(row=row, column=col+1, padx=5, pady=5)
+            entry.grid(row=row, column=col+1, padx=5, pady=5) 
+
             return entry
 
         entry_ad = add_label_entry(0, 1, "Adı:", mevcut_ad)
