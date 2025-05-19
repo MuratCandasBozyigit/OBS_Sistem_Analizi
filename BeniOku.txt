@@ -1,0 +1,167 @@
+﻿MURAT EĞİTİM BAKANLIĞI YÖNETİM SİSTEMİ
+
+📌 Proje Amacı
+----------------
+Bu sistem, özellikle küçük beldelerdeki okul yönetimlerini veya bağımsız eğitim kurumlarını hedefleyen sade, kullanıcı dostu bir yönetim yazılımıdır. Öğrenci, öğretmen ve ders yönetimi gibi temel işlevlerin kolayca yapılabilmesi hedeflenmiştir.
+
+📦 Teknoloji ve Altyapı
+--------------------------
+- **Python 3.13.3: Ana programlama dili
+- **CustomTkinter**: Modern arayüz tasarımı
+- **SQLite3**: Yerel veri tabanı
+- **MVC Yapısı**: Mantık, arayüz ve veri ayrımı sağlanmıştır
+- **Modülerlik**: Her sayfa ve işlem bağımsız dosyalara ayrılmıştır (örneğin: `LoginPages/AdminLogin.py`, `Frames/SubFrames/Admin/Student/...`)
+
+🟢 Uygulamanın İlk Açılışı
+-----------------------------
+İlk kez çalıştırıldığında uygulama biraz geç açılabilir. Bunun nedeni, ilk açılışta gerekli veritabanı tablolarının oluşturulması ve sistemin konfigürasyonunun yapılmasıdır. Lütfen sabırla bekleyin.
+
+🖥️ Giriş Sayfası (Main Page)
+------------------------------
+Uygulama açıldığında 3 adet buton görünür:
+
+- 👨‍💼 **Admin**
+- 👨‍🏫 **Öğretmen**
+- 👨‍🎓 **Öğrenci**
+
+Her biri kendi login ekranına yönlendirir.
+
+📋 Admin Giriş Bilgileri
+-------------------------
+İlk kullanım için sistem varsayılan bir kullanıcı ile birlikte gelir:
+-**Ad Soyad**:`admin`
+- **Kullanıcı Adı**: `admin`
+- **Şifre**: `admin`
+
+Giriş yaptıktan sonra admin paneline yönlendirilirsiniz.
+
+📌 Admin Paneli Özellikleri
+-----------------------------
+Admin panelinde 3 temel kategori yer alır:
+
+1. **ÖĞRENCİ İŞLEMLERİ**
+   - Öğrenci Ekleme
+   - Öğrenci Silme 
+   - Öğrenci Güncelleme 
+   - Öğrenci Listeleme
+
+2. **ÖĞRETMEN İŞLEMLERİ**
+   - Öğretmen Ekleme
+   - Öğretmen Silme
+   - Öğretmen Güncelleme
+   - Öğretmen Listeleme
+
+3. **DERS İŞLEMLERİ**
+   - Ders Ekleme
+   - Ders Silme
+   - Ders Güncelleme
+   - Ders Listeleme
+
+➡️ Sayfalara geçişlerde yeni pencere (Toplevel) açılmasının sebebi, aynı anda birden çok işlem yapılabilmesini sağlamaktır. Kullanıcı bir işlem yaparken diğer verileri kaybetmeden çalışmaya devam edebilir.
+
+📂 Öğrenci Paneli
+------------------
+Öğrenciler için sade bir tasarım tercih edilmiştir. Sistem yalnızca "Derslerim" ekranını içerir.
+
+**Derslerim Sayfası**:
+- Öğrenciye atanmış dersler listelenir.
+- Her dersin yanında o dersten aldığı notlar ve ortalaması görüntülenir.
+
+📂 Öğretmen Paneli
+--------------------
+Öğretmen paneli, sadeleştirilmiş tek bir sayfa içerir:
+
+**"Eğitim Görevlisi Olduğum Dersler"**:
+- Öğretmene atanmış dersler görüntülenir.
+- Bir derse tıklanıldığında, o derse kayıtlı öğrenciler listelenir.
+- Öğrencilerin karşısında "Not Ver" butonu yer alır.
+  - Tıklanıldığında ilgili öğrenci için not giriş sayfası açılır.
+
+🎯 Teknik Sadelik ve Veritabanı Yapısı (Öğretmen Sayfası)
+---------------------------------------
+- Her işlem için ayrı tablolar yerine, çoktan çoğa ilişkileri yönetmek için sadeleştirilmiş 1 ek tablo kullanılmıştır.
+- Kodlama açısından verimliliği artırmak ve veri yapısını karmaşıklaştırmamak hedeflenmiştir.
+- Eğer her işlem için ayrı ayrı tablo oluşturmak isteseydim 9 farklı işlem ve 3 farklı tablo oluşturmam gerekirdi 3 işlem ve 1 tablo ile halletmiş oldum bu yapı ile.
+- Bu sayede veri tabanı yapısı daha sade ve anlaşılır hale gelmiştir.
+
+📁 Dosya Yapısı (Kısaca)
+-------------------------
+ProjeKlasörü/
+│
+├── Main.py # Uygulamanın giriş noktası
+├── DB/
+│ ├── create_tables.py # Veritabanı tablolarını oluşturan script
+│ └── ... (Migrations)
+│
+├── GUI/
+│ ├── LoginPages/
+│ │ ├── AdminLogin.py
+│ │ ├── TeacherLogin.py
+│ │ └── StudentLogin.py
+│ │
+│ └── Frames/
+│ ├── Admin/
+│ │ ├── Student/
+│ │ ├── Teacher/
+│ │ └── Class/
+│ ├── Teacher/
+│ └── Student/
+│	
+└── README.txt (Bu dosya)
+└── okul.db # SQLite veritabanı dosyası
+-------------------------
+
+📢 Notlar
+----------
+- Sistemde yapılan **silme işlemleri geri alınamaz**, lütfen dikkatli olunuz.
+- Giriş bilgileri ileride kullanıcı taraflı şifre güncellemesi yapılacak şekilde geliştirilebilir.
+- Program kapalı kutu çalışır, internet bağlantısına gerek duymaz.
+
+Projeyi Geliştirme Sürecim Kısaca
+----------------------------------
+
+Projeyi geliştirirken yaptığım her şeyi görmek isterseniz,geliştirme sürecim commitlerim pull requestlerim ve branchlerim ile githubda mevcuttur.
+Projenin GİTHUB Linki:https://github.com/MuratCandasBozyigit/OBS_Sistem_Analizi
+
+Projeyi geliştirirken dikkat ettiğim bazı noktalar şunlardır:
+✅ Kod Okunabilirliği
+Kodlar, işlevlerine göre mantıksal modüllere ayrılmıştır.
+
+Fonksiyon ve dosya isimlendirmeleri anlamlı, sade ve açıklayıcı olacak şekilde düzenlenmiştir.
+
+Gereksiz tekrarlar (redundant code) engellenmiş, fonksiyonel yapılar tercih edilmiştir.
+
+Her fonksiyon yalnızca bir iş yapacak şekilde yazılmıştır (single responsibility prensibi).
+
+✅ Sadelik
+Arayüz kullanıcıyı yormayan sade bir tasarımla oluşturulmuştur.
+
+Öğrenciler ve öğretmenler için sadece ihtiyaç duyacakları ekranlar gösterilmiştir.
+
+Gereksiz görsel karmaşadan kaçınılmış, sade renk ve yerleşim tercihiyle dikkat dağınıklığı engellenmiştir.
+
+✅ Veritabanı Tasarımı
+SQLite3 kullanılarak hafif ve hızlı bir yerel veritabanı yapısı kurulmuştur.
+
+Gereksiz tablo ilişkilerinden kaçınılmış, çoktan çoğa ilişkiler tek bir ara tablo ile sadeleştirilmiştir.
+
+Tablolar Migrations klasöründeki scriptler aracılığıyla otomatik olarak oluşturulmaktadır.
+
+Tüm temel işlemler (CRUD: Create, Read, Update, Delete) sistematik şekilde uygulanmıştır.
+
+✅ Modüler Yapı
+Proje dosya yapısı, her rol (Admin, Öğretmen, Öğrenci) için ayrı klasörler ve alt modüller içerir.
+
+Her alt sistem (örneğin: Öğrenci Ekle, Ders Güncelle) kendi bağımsız fonksiyonunda çalışır.
+
+Bu yapı sayesinde uygulamanın gelecekte yeni modüllerle genişletilmesi çok kolaydır.
+
+Her sayfa ihtiyaca göre bağımsız geliştirilebilir/test edilebilir yapıdadır.
+
+🧩 Ekstra Avantajlar
+Giriş ekranları ve kullanıcı panelleri role-based routing prensibine göre çalışır.
+
+Her butonun farklı pencerede açılması, çoklu görev yeteneğini sağlar (projenin şuanki şeklinde genellikle admin kullanıcılar için).
+
+Öğretmen paneli için veri tabanında sade ama etkili bir ilişki modeli kullanılarak geliştirici işi kolaylaştırılmış, aynı zamanda kullanıcı için de kullanım basitleştirilmiştir.
+
