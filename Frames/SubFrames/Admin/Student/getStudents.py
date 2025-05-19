@@ -1,154 +1,111 @@
 ﻿import customtkinter as ctk
 from tkinter import messagebox
 from DB.Migrations.Student import tum_ogrencileri_getir, ogrenci_sil, ogrenci_guncelle
-from . import createStudent  # Öğrenci ekleme penceresi
-from . import assignClassToStudent
-from . import assignTeacherToStudent
+from . import createStudent, assignClassToStudent, assignTeacherToStudent
 
 def ogrencileri_listele_gui():
     win = ctk.CTkToplevel()
     win.title("Öğrenci Yönetimi")
     win.geometry("1450x650")
     win.lift()
-    win.attributes('-topmost', True)
-    win.after(200, lambda: win.attributes('-topmost', False))
+    win.attributes("-topmost", True)
+    win.after(200, lambda: win.attributes("-topmost", False))
 
-    title = ctk.CTkLabel(win, text="Tüm Öğrenciler", font=("Arial", 22, "bold"))
-    title.pack(pady=10)
+    ctk.CTkLabel(win, text="Tüm Öğrenciler", font=("Arial", 22, "bold")).pack(pady=10)
 
     def refresh():
         win.destroy()
         ogrencileri_listele_gui()
 
+    # Üst butonlar
     button_frame = ctk.CTkFrame(win, fg_color="transparent")
-    button_frame.pack(pady=(0, 10))
+    button_frame.pack(pady=5)
 
-    yenile_btn = ctk.CTkButton(
-        button_frame, text="Sayfayı Yenile 🔁", command=refresh,
-        fg_color="gray", hover_color="darkgray", font=("Arial", 14)
-    )
-    yenile_btn.pack(side="left", padx=10)
+    ctk.CTkButton(button_frame, text="Sayfayı Yenile 🔁", command=refresh, fg_color="gray", hover_color="darkgray", font=("Arial", 14)).pack(side="left", padx=10)
+    ctk.CTkButton(button_frame, text="Yeni Öğrenci Ekle", command=createStudent.ogrenci_ekleme_penceresi, fg_color="green", hover_color="#006400", font=("Arial", 14)).pack(side="left", padx=10)
 
-    ekle_btn = ctk.CTkButton(
-        button_frame, text="Yeni Öğrenci Ekle",
-        command=createStudent.ogrenci_ekleme_penceresi,
-        fg_color="green", hover_color="#006400", font=("Arial", 14)
-    )
-    ekle_btn.pack(side="left", padx=10)
-
+    # Scrollable alan
     scroll_frame = ctk.CTkScrollableFrame(win, width=1300, height=460)
     scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-    headers = ["ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara", "Fotoğraf", "Adres", "Vize", "Final", "Şifre", "Güncelle", "Sil", "Ders İşlemleri", "Öğretmen İşlemleri"]
+    headers = [
+        "ID", "Adı", "Soyadı", "Telefon", "TCKN", "Numara",
+        "Fotoğraf", "Adres", "Şifre",
+        "Güncelle", "Sil", "Ders İşlemleri", "Öğretmen İşlemleri"
+    ]
     for col, header in enumerate(headers):
-        ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 15, "bold")).grid(
-            row=0, column=col, padx=10, pady=5, sticky="w"
-        )
+        ctk.CTkLabel(scroll_frame, text=header, font=("Arial", 15, "bold")).grid(row=0, column=col, padx=5, pady=5, sticky="w")
 
     ogrenciler = tum_ogrencileri_getir()
+
     if not ogrenciler:
-        ctk.CTkLabel(scroll_frame, text="Kayıtlı öğrenci bulunamadı.", font=("Arial", 25, "bold")).grid(
-            row=3, column=5, columnspan=10, pady=10
-        )
+        ctk.CTkLabel(scroll_frame, text="Kayıtlı öğrenci bulunamadı.", font=("Arial", 18, "bold")).grid(row=1, column=0, columnspan=len(headers), pady=20)
         return
 
     guncelle_form = {"frame": None}
 
     def sil_ogrenci(ogrenci_id):
-        confirm = messagebox.askyesno("Öğrenciyi Sil", f"ID: {ogrenci_id} olan öğrenciyi silmek istiyor musunuz?")
-        if confirm:
+        if messagebox.askyesno("Öğrenci Sil", f"ID {ogrenci_id} olan öğrenciyi silmek istiyor musunuz?"):
             try:
                 ogrenci_sil(ogrenci_id)
-                messagebox.showinfo("Silindi", "Öğrenci başarıyla silindi.")
+                messagebox.showinfo("Başarılı", "Öğrenci silindi.")
                 refresh()
             except Exception as e:
-                messagebox.showerror("Hata", f"Silinemedi!\n{e}")
+                messagebox.showerror("Hata", f"Silme hatası:\n{e}")
 
-    def guncelle_goster(row_idx, ogrenci_id, mevcut_ad, mevcut_soyad, mevcut_tel, mevcut_tckn, mevcut_numara, mevcut_foto, mevcut_adres, mevcut_vize, mevcut_final, mevcut_sifre):
+    def guncelle_goster(row, ogrenci_id, *mevcut):
         if guncelle_form["frame"]:
             guncelle_form["frame"].destroy()
 
         form = ctk.CTkFrame(scroll_frame, fg_color="#F0F0F0")
-        form.grid(row=row_idx+1, column=0, columnspan=15, pady=(5, 15), sticky="ew", padx=10)
+        form.grid(row=row+1, column=0, columnspan=15, pady=10, padx=10, sticky="ew")
 
-        def iptal_et():
-            form.destroy()
-            guncelle_form["frame"] = None
-
-        def add_label_entry(row, col, text, mevcut, show=None):
-            ctk.CTkLabel(form, text=text, font=("Arial", 13)).grid(row=row, column=col, padx=5, pady=5, sticky="w")
-            entry = ctk.CTkEntry(form, width=200, show=show)
-            entry.insert(0, mevcut)
-            entry.grid(row=row, column=col+1, padx=5, pady=5) 
-
-            return entry
-
-        entry_ad = add_label_entry(0, 1, "Adı:", mevcut_ad)
-        entry_soyad = add_label_entry(0, 3, "Soyadı:", mevcut_soyad)
-        entry_tel = add_label_entry(1, 1, "Telefon No:", mevcut_tel)
-        entry_tckn = add_label_entry(1, 3, "TCKN:", mevcut_tckn)
-        entry_numara = add_label_entry(2, 1, "Öğrenci No:", mevcut_numara)
-        entry_foto = add_label_entry(2, 3, "Fotoğraf URL:", mevcut_foto)
-        entry_adres = add_label_entry(3, 1, "Adres:", mevcut_adres)
-        entry_vize = add_label_entry(3, 3, "Vize:", mevcut_vize)
-        entry_final = add_label_entry(4, 1, "Final:", mevcut_final)
-        entry_sifre = add_label_entry(4, 3, "Şifre:", mevcut_sifre, show="*")
+        labels = ["Adı", "Soyadı", "Telefon", "TCKN", "Numara", "Fotoğraf", "Adres", "Şifre"]
+        entries = []
+        for idx, (label, value) in enumerate(zip(labels, mevcut)):
+            ctk.CTkLabel(form, text=label + ":", font=("Arial", 13)).grid(row=idx//2, column=(idx%2)*2, padx=5, pady=5, sticky="w")
+            ent = ctk.CTkEntry(form, width=200, show="*" if label == "Şifre" else None)
+            ent.insert(0, str(value) if value is not None else "")
+            ent.grid(row=idx//2, column=(idx%2)*2 + 1, padx=5, pady=5)
+            entries.append(ent)
 
         def kaydet():
             try:
-                yeni_ad = entry_ad.get().strip()
-                yeni_soyad = entry_soyad.get().strip()
-                yeni_tel = entry_tel.get().strip()
-                yeni_tckn = entry_tckn.get().strip()
-                yeni_numara = entry_numara.get().strip()
-                yeni_foto = entry_foto.get().strip()
-                yeni_adres = entry_adres.get().strip()
-                yeni_vize = float(entry_vize.get().strip())
-                yeni_final = float(entry_final.get().strip())
-                yeni_sifre = entry_sifre.get().strip()
-
-                if not all([yeni_ad, yeni_soyad, yeni_tel, yeni_tckn, yeni_numara, yeni_foto, yeni_adres, yeni_sifre]):
-                    messagebox.showerror("Hata", "Alanlar boş bırakılamaz.")
+                values = [e.get().strip() for e in entries]
+                if not all(values):
+                    messagebox.showerror("Hata", "Tüm alanlar doldurulmalıdır.")
                     return
-
-                ogrenci_guncelle(ogrenci_id, yeni_ad, yeni_soyad, yeni_foto, yeni_adres, yeni_tel, yeni_tckn, yeni_numara, yeni_vize, yeni_final, yeni_sifre)
+                ogrenci_guncelle(ogrenci_id, *values)
                 messagebox.showinfo("Başarılı", "Öğrenci güncellendi.")
                 refresh()
-
             except Exception as e:
                 messagebox.showerror("Hata", f"Güncelleme hatası:\n{e}")
 
-        ctk.CTkButton(form, text="Kaydet", command=kaydet, width=100, fg_color="#FFA500", hover_color="#FF8C00").grid(row=5, column=4, padx=10)
-        ctk.CTkButton(form, text="İptal", command=iptal_et, width=80, fg_color="gray", hover_color="darkgray").grid(row=5, column=5, padx=10, pady=5)
+        ctk.CTkButton(form, text="Kaydet", command=kaydet, fg_color="#FFA500", hover_color="#FF8C00").grid(row=5, column=3, padx=10)
+        ctk.CTkButton(form, text="İptal", command=lambda: form.destroy(), fg_color="gray", hover_color="darkgray").grid(row=5, column=4, padx=10)
 
         guncelle_form["frame"] = form
 
-    for i, ogrenci in enumerate(ogrenciler, start=1):
-        ogrenci_id, ad, soyad, foto, adres, tel, tckn, numara, vize, final, sifre = ogrenci
+    # Öğrenci satırlarını oluştur
+    for i, ogr in enumerate(ogrenciler, start=1):
+        ogr_id, ad, soyad, foto, adres, tel, tckn, numara, sifre ,vize,final = ogr
 
-        for idx, val in enumerate([ogrenci_id, ad, soyad, tel, tckn, numara, foto, adres, vize, final, sifre]):
-            ctk.CTkLabel(scroll_frame, text=str(val), font=("Arial", 12)).grid(
-                row=i, column=idx, padx=5, pady=5, sticky="w"
-            )
+        row_data = [ogr_id, ad, soyad, tel, tckn, numara, foto, adres, sifre]
+        for j, val in enumerate(row_data):
+            ctk.CTkLabel(scroll_frame, text=str(val), font=("Arial", 12)).grid(row=i, column=j, padx=5, pady=5, sticky="w")
 
-        ctk.CTkButton(
-            scroll_frame, text="Güncelle", font=("Arial", 12), fg_color="#FFA500", hover_color="#FF8C00",
-            command=lambda row=i, oid=ogrenci_id: guncelle_goster(
-                row, oid, ad, soyad, tel, tckn, numara, foto, adres, vize, final, sifre
-            )
-        ).grid(row=i, column=11, padx=5, pady=5)
+        ctk.CTkButton(scroll_frame, text="Güncelle", font=("Arial", 12), fg_color="#FFA500", hover_color="#FF8C00",
+                      command=lambda i=i, oid=ogr_id: guncelle_goster(i, oid, ad, soyad, tel, tckn, numara, foto, adres, sifre)
+                      ).grid(row=i, column=9, padx=5, pady=5)
 
-        ctk.CTkButton(
-            scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
-            command=lambda oid=ogrenci_id: sil_ogrenci(oid)
-        ).grid(row=i, column=12, padx=5, pady=5)
+        ctk.CTkButton(scroll_frame, text="Sil", font=("Arial", 12), fg_color="#FF6347", hover_color="#FF4500",
+                      command=lambda oid=ogr_id: sil_ogrenci(oid)
+                      ).grid(row=i, column=10, padx=5, pady=5)
 
-        ctk.CTkButton(
-            scroll_frame, text="Ders İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
-            command=lambda oid=ogrenci_id: assignClassToStudent.ders_ekle_ogrenci(oid, scroll_frame)
-        ).grid(row=i, column=13, padx=5, pady=5)
+        ctk.CTkButton(scroll_frame, text="Ders İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
+                      command=lambda oid=ogr_id: assignClassToStudent.ders_ekle_ogrenci(oid, scroll_frame)
+                      ).grid(row=i, column=11, padx=5, pady=5)
 
-        ctk.CTkButton(
-            scroll_frame, text="Öğretmen İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
-            command=lambda oid=ogrenci_id: assignTeacherToStudent.ogretmen_ekle_ogrenci(oid, scroll_frame)
-        ).grid(row=i, column=14, padx=5, pady=5)
+        ctk.CTkButton(scroll_frame, text="Öğretmen İşlemleri", font=("Arial", 12), fg_color="#4682B4", hover_color="#4169E1",
+                      command=lambda oid=ogr_id: assignTeacherToStudent.ogretmen_ekle_ogrenci(oid, scroll_frame)
+                      ).grid(row=i, column=12, padx=5, pady=5)
